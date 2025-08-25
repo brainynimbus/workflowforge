@@ -2,9 +2,9 @@
 
 ## Creator & Maintainer
 
-**Brainy Nimbus, LLC**  
-Website: [brainynimbus.io](https://brainynimbus.io)  
-Email: contact@brainynimbus.io  
+**Brainy Nimbus, LLC**
+Website: [brainynimbus.io](https://brainynimbus.io)
+Email: contact@brainynimbus.io
 GitHub: [@brainynimbus](https://github.com/brainynimbus)
 
 ## Contributions

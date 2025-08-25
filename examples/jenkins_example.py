@@ -4,13 +4,7 @@ Jenkins pipeline example using WorkflowForge.
 Creates a complete CI/CD pipeline for Jenkins.
 """
 
-from workflowforge import (
-    JenkinsPipeline, 
-    stage,
-    agent_docker,
-    agent_any,
-    pipeline
-)
+from workflowforge import JenkinsPipeline, agent_any, agent_docker, pipeline, stage
 
 # Create Jenkins pipeline
 jenkins_pipeline = pipeline()
@@ -46,7 +40,7 @@ jenkins_pipeline.add_stage(deploy_stage)
 jenkins_pipeline.post = {
     "always": ["echo 'Pipeline completed'"],
     "success": ["echo 'Build successful!'"],
-    "failure": ["echo 'Build failed!'"]
+    "failure": ["echo 'Build failed!'"],
 }
 
 # Generate and save Jenkinsfile
@@ -54,7 +48,7 @@ if __name__ == "__main__":
     print("Generating Jenkins pipeline...")
     jenkinsfile_content = jenkins_pipeline.to_jenkinsfile()
     print(jenkinsfile_content)
-    
+
     # Save to Jenkinsfile
     jenkins_pipeline.save("Jenkinsfile")
     print("Jenkinsfile saved successfully!")

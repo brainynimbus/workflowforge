@@ -5,114 +5,105 @@ This library allows you to create GitHub Actions workflows programmatically,
 with type validation, autocompletion, and an intuitive API.
 """
 
-from .workflow import Workflow
-from .job import Job
-from .step import Step, ActionStep, RunStep, action, run
-from .triggers import (
-    PushTrigger,
-    PullRequestTrigger,
-    ScheduleTrigger,
-    WorkflowDispatchTrigger,
-    ReleaseTrigger,
-    on_push,
-    on_pull_request,
-    on_schedule,
-    on_workflow_dispatch,
-    on_release,
+from .ai_documentation import (
+    OllamaClient,
+    ai_documentation_client,
+    generate_workflow_readme,
 )
-from .strategy import Strategy, Matrix, matrix, strategy
+from .codebuild import (
+    BuildArtifacts,
+    BuildCache,
+    BuildEnvironment,
+    BuildPhase,
+    BuildSpec,
+    artifacts,
+    buildspec,
+    cache,
+    environment,
+    phase,
+)
 from .environment import Environment, environment
 from .jenkins import (
+    JenkinsAgent,
     JenkinsPipeline,
     JenkinsStage,
-    JenkinsAgent,
     agent_any,
     agent_docker,
     agent_label,
-    stage,
     pipeline,
+    stage,
 )
 from .jenkins_plugins import (
-    GitCheckout,
-    DockerPlugin,
-    SlackNotification,
-    EmailNotification,
     ArtifactArchiver,
+    DockerPlugin,
+    EmailNotification,
+    GitCheckout,
     JUnitPublisher,
-    git_checkout,
-    docker_run,
-    slack_notify,
-    email_notify,
+    SlackNotification,
     archive_artifacts,
+    docker_run,
+    email_notify,
+    git_checkout,
     publish_junit,
+    slack_notify,
 )
-from .codebuild import (
-    BuildSpec,
-    BuildPhase,
-    BuildEnvironment,
-    BuildArtifacts,
-    BuildCache,
-    buildspec,
-    phase,
-    environment,
-    artifacts,
-    cache,
-)
-from .secrets import (
-    # GitHub Actions
-    Secret,
-    Variable,
+from .job import Job
+from .schema_validation import validate_github_actions_schema, validate_workflow_yaml
+from .secrets import (  # GitHub Actions; Jenkins; AWS CodeBuild
+    CodeBuildEnvVar,
+    CodeBuildParameter,
+    CodeBuildSecret,
     GitHubContext,
-    secret,
-    variable,
-    github_context,
-    # Jenkins
     JenkinsCredential,
     JenkinsEnvVar,
     JenkinsParam,
+    Secret,
+    Variable,
+    codebuild_env,
+    codebuild_parameter,
+    codebuild_secret,
+    github_context,
     jenkins_credential,
     jenkins_env,
     jenkins_param,
-    # AWS CodeBuild
-    CodeBuildSecret,
-    CodeBuildParameter,
-    CodeBuildEnvVar,
-    codebuild_secret,
-    codebuild_parameter,
-    codebuild_env,
+    secret,
+    variable,
 )
-from .ai_documentation import (
-    OllamaClient,
-    generate_workflow_readme,
-    ai_documentation_client,
-)
-from .visualization import (
-    PipelineVisualizer,
-    visualizer,
-)
-from .validation import (
-    validate_job_name,
-    validate_step_name,
-    validate_secret_name,
-    ValidationError,
-)
+from .step import ActionStep, RunStep, Step, action, run
+from .strategy import Matrix, Strategy, matrix, strategy
 from .templates import (
-    python_ci_template,
     docker_build_template,
     node_ci_template,
+    python_ci_template,
     release_template,
 )
-from .schema_validation import (
-    validate_github_actions_schema,
-    validate_workflow_yaml,
+from .triggers import (
+    PullRequestTrigger,
+    PushTrigger,
+    ReleaseTrigger,
+    ScheduleTrigger,
+    WorkflowDispatchTrigger,
+    on_pull_request,
+    on_push,
+    on_release,
+    on_schedule,
+    on_workflow_dispatch,
 )
+from .validation import (
+    ValidationError,
+    validate_job_name,
+    validate_secret_name,
+    validate_step_name,
+)
+from .visualization import PipelineVisualizer, visualizer
+from .workflow import Workflow
 
 __version__ = "1.0b1"
 __all__ = [
     "Workflow",
     "Job",
     "Step",
-    "ActionStep", 
+    "ActionStep",
     "RunStep",
     "action",
     "run",

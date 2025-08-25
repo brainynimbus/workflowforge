@@ -2,7 +2,13 @@
 
 import pytest
 import yaml
-from workflowforge import buildspec, phase, environment, artifacts
+
+from workflowforge.codebuild import BuildEnvironment, artifacts, buildspec, phase
+
+
+def environment():
+    """Helper function to create BuildEnvironment."""
+    return BuildEnvironment()
 
 
 def test_buildspec_creation():
@@ -17,11 +23,11 @@ def test_buildspec_with_phases():
     build_phase = phase()
     build_phase.add_command("echo 'Building'")
     spec.set_build_phase(build_phase)
-    
+
     yaml_output = spec.to_yaml()
     assert "# Do not modify - Generated with WorkflowForge" in yaml_output
-    
-    parsed = yaml.safe_load(yaml_output.split('\n', 1)[1])  # Skip comment
+
+    parsed = yaml.safe_load(yaml_output.split("\n", 1)[1])  # Skip comment
     assert "phases" in parsed
     assert "build" in parsed["phases"]
     assert "echo 'Building'" in parsed["phases"]["build"]["commands"]
@@ -33,10 +39,10 @@ def test_buildspec_environment():
     env = environment()
     env.add_variable("NODE_ENV", "production")
     spec.set_env(env)
-    
+
     yaml_output = spec.to_yaml()
-    parsed = yaml.safe_load(yaml_output.split('\n', 1)[1])
-    
+    parsed = yaml.safe_load(yaml_output.split("\n", 1)[1])
+
     assert "env" in parsed
     assert "variables" in parsed["env"]
     assert parsed["env"]["variables"]["NODE_ENV"] == "production"
@@ -48,10 +54,10 @@ def test_buildspec_artifacts():
     arts = artifacts(["**/*"])
     arts.name = "my-artifacts"
     spec.set_artifacts(arts)
-    
+
     yaml_output = spec.to_yaml()
-    parsed = yaml.safe_load(yaml_output.split('\n', 1)[1])
-    
+    parsed = yaml.safe_load(yaml_output.split("\n", 1)[1])
+
     assert "artifacts" in parsed
     assert parsed["artifacts"]["files"] == ["**/*"]
     assert parsed["artifacts"]["name"] == "my-artifacts"

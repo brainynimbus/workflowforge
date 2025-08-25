@@ -1,47 +1,48 @@
 """Secrets and variables support for all platforms."""
 
-from typing import Dict, Any
+from typing import Any, Dict
+
 from pydantic import BaseModel, Field
 
 
 # GitHub Actions
 class Secret(BaseModel):
     """Represents a GitHub Actions secret reference."""
-    
+
     name: str = Field(..., description="Secret name")
-    
+
     def __str__(self) -> str:
         return f"${{{{ secrets.{self.name} }}}}"
 
 
 class Variable(BaseModel):
     """Represents a GitHub Actions variable reference."""
-    
+
     name: str = Field(..., description="Variable name")
-    
+
     def __str__(self) -> str:
         return f"${{{{ vars.{self.name} }}}}"
 
 
 class GitHubContext(BaseModel):
     """Represents GitHub context variables."""
-    
+
     @staticmethod
     def event_name() -> str:
         return "${{ github.event_name }}"
-    
+
     @staticmethod
     def ref() -> str:
         return "${{ github.ref }}"
-    
+
     @staticmethod
     def sha() -> str:
         return "${{ github.sha }}"
-    
+
     @staticmethod
     def actor() -> str:
         return "${{ github.actor }}"
-    
+
     @staticmethod
     def repository() -> str:
         return "${{ github.repository }}"
@@ -50,27 +51,27 @@ class GitHubContext(BaseModel):
 # Jenkins
 class JenkinsCredential(BaseModel):
     """Represents a Jenkins credential reference."""
-    
+
     id: str = Field(..., description="Credential ID")
-    
+
     def __str__(self) -> str:
         return f"credentials('{self.id}')"
 
 
 class JenkinsEnvVar(BaseModel):
     """Represents a Jenkins environment variable."""
-    
+
     name: str = Field(..., description="Environment variable name")
-    
+
     def __str__(self) -> str:
         return f"env.{self.name}"
 
 
 class JenkinsParam(BaseModel):
     """Represents a Jenkins parameter."""
-    
+
     name: str = Field(..., description="Parameter name")
-    
+
     def __str__(self) -> str:
         return f"params.{self.name}"
 
@@ -78,27 +79,27 @@ class JenkinsParam(BaseModel):
 # AWS CodeBuild
 class CodeBuildSecret(BaseModel):
     """Represents an AWS CodeBuild secret from Secrets Manager."""
-    
+
     name: str = Field(..., description="Secret name")
-    
+
     def __str__(self) -> str:
         return f"${self.name}"
 
 
 class CodeBuildParameter(BaseModel):
     """Represents an AWS CodeBuild parameter from Parameter Store."""
-    
+
     name: str = Field(..., description="Parameter name")
-    
+
     def __str__(self) -> str:
         return f"${self.name}"
 
 
 class CodeBuildEnvVar(BaseModel):
     """Represents an AWS CodeBuild environment variable."""
-    
+
     name: str = Field(..., description="Environment variable name")
-    
+
     def __str__(self) -> str:
         return f"${self.name}"
 

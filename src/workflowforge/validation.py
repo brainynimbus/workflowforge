@@ -1,12 +1,12 @@
 """Validation utilities for WorkflowForge."""
 
 import re
-from typing import List, Dict, Any
+from typing import Any, Dict, List
 
 
 def validate_job_name(name: str) -> bool:
     """Validate GitHub Actions job name."""
-    return bool(re.match(r'^[a-zA-Z_][a-zA-Z0-9_-]*$', name))
+    return bool(re.match(r"^[a-zA-Z_][a-zA-Z0-9_-]*$", name))
 
 
 def validate_step_name(name: str) -> bool:
@@ -16,12 +16,12 @@ def validate_step_name(name: str) -> bool:
 
 def validate_environment_name(name: str) -> bool:
     """Validate GitHub Actions environment name."""
-    return bool(re.match(r'^[a-zA-Z0-9_-]+$', name))
+    return bool(re.match(r"^[a-zA-Z0-9_-]+$", name))
 
 
 def validate_secret_name(name: str) -> bool:
     """Validate GitHub Actions secret name."""
-    return bool(re.match(r'^[A-Z][A-Z0-9_]*$', name))
+    return bool(re.match(r"^[A-Z][A-Z0-9_]*$", name))
 
 
 def validate_cron_expression(cron: str) -> bool:
@@ -29,44 +29,45 @@ def validate_cron_expression(cron: str) -> bool:
     parts = cron.split()
     if len(parts) != 5:
         return False
-    
+
     # Basic pattern check (not comprehensive)
-    cron_pattern = r'^[0-9*,-/]+\s+[0-9*,-/]+\s+[0-9*,-/]+\s+[0-9*,-/]+\s+[0-9*,-/]+$'
+    cron_pattern = r"^[0-9*,-/]+\s+[0-9*,-/]+\s+[0-9*,-/]+\s+[0-9*,-/]+\s+[0-9*,-/]+$"
     return bool(re.match(cron_pattern, cron))
 
 
 def validate_docker_image(image: str) -> bool:
     """Validate Docker image name format."""
     # Basic validation for Docker image names
-    pattern = r'^[a-z0-9]+(?:[._-][a-z0-9]+)*(?:/[a-z0-9]+(?:[._-][a-z0-9]+)*)*(?::[a-zA-Z0-9._-]+)?$'
+    pattern = r"^[a-z0-9]+(?:[._-][a-z0-9]+)*(?:/[a-z0-9]+(?:[._-][a-z0-9]+)*)*(?::[a-zA-Z0-9._-]+)?$"
     return bool(re.match(pattern, image))
 
 
 class ValidationError(Exception):
     """Raised when validation fails."""
+
     pass
 
 
-def validate_workflow_structure(workflow_dict: Dict[str, Any]) -> List[str]:
+def validate_workflow_structure(workflow_dict: dict[str, Any]) -> list[str]:
     """Validate workflow structure and return list of errors."""
     errors = []
-    
+
     # Required fields
-    if 'name' not in workflow_dict:
+    if "name" not in workflow_dict:
         errors.append("Workflow must have a 'name' field")
-    
-    if 'on' not in workflow_dict:
+
+    if "on" not in workflow_dict:
         errors.append("Workflow must have an 'on' field")
-    
-    if 'jobs' not in workflow_dict:
+
+    if "jobs" not in workflow_dict:
         errors.append("Workflow must have a 'jobs' field")
-    elif not workflow_dict['jobs']:
+    elif not workflow_dict["jobs"]:
         errors.append("Workflow must have at least one job")
-    
+
     # Validate job names
-    if 'jobs' in workflow_dict:
-        for job_name in workflow_dict['jobs']:
+    if "jobs" in workflow_dict:
+        for job_name in workflow_dict["jobs"]:
             if not validate_job_name(job_name):
                 errors.append(f"Invalid job name: '{job_name}'")
-    
+
     return errors

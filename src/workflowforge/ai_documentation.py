@@ -1,18 +1,21 @@
 """AI-powered documentation generation for WorkflowForge."""
 
 import json
+from typing import Any, Dict, Optional
+
 import requests
-from typing import Optional, Dict, Any
 from pydantic import BaseModel, Field
 
 
 class OllamaClient(BaseModel):
     """Client for interacting with Ollama local LLM."""
-    
-    base_url: str = Field(default="http://localhost:11434", description="Ollama server URL")
+
+    base_url: str = Field(
+        default="http://localhost:11434", description="Ollama server URL"
+    )
     model: str = Field(default="llama3.2", description="Model to use")
     timeout: int = Field(default=30, description="Request timeout in seconds")
-    
+
     def is_available(self) -> bool:
         """Check if Ollama is running and accessible."""
         try:
@@ -20,23 +23,19 @@ class OllamaClient(BaseModel):
             return response.status_code == 200
         except:
             return False
-    
-    def generate(self, prompt: str) -> Optional[str]:
+
+    def generate(self, prompt: str) -> str | None:
         """Generate text using Ollama."""
         if not self.is_available():
             return None
-            
+
         try:
             response = requests.post(
                 f"{self.base_url}/api/generate",
-                json={
-                    "model": self.model,
-                    "prompt": prompt,
-                    "stream": False
-                },
-                timeout=self.timeout
+                json={"model": self.model, "prompt": prompt, "stream": False},
+                timeout=self.timeout,
             )
-            
+
             if response.status_code == 200:
                 return response.json().get("response", "").strip()
             return None
@@ -44,14 +43,16 @@ class OllamaClient(BaseModel):
             return None
 
 
-def generate_workflow_readme(workflow_content: str, platform: str = "github", use_ai: bool = True) -> str:
+def generate_workflow_readme(
+    workflow_content: str, platform: str = "github", use_ai: bool = True
+) -> str:
     """Generate README documentation for a workflow.
-    
+
     Args:
         workflow_content: The YAML/Jenkinsfile content
         platform: Platform type (github, jenkins, codebuild)
         use_ai: Whether to use AI generation (requires Ollama)
-    
+
     Returns:
         Generated README content
     """
@@ -64,10 +65,10 @@ def generate_workflow_readme(workflow_content: str, platform: str = "github", us
 def _ai_generate_readme(workflow_content: str, platform: str) -> str:
     """Generate README using Ollama AI."""
     client = OllamaClient()
-    
+
     if not client.is_available():
         return _template_generate_readme(workflow_content, platform)
-    
+
     prompt = f"""
 Analyze this {platform.upper()} CI/CD workflow and generate a comprehensive README.md documentation.
 
@@ -87,9 +88,9 @@ Please provide:
 Format as proper markdown with clear sections and code blocks where appropriate.
 Keep it concise but informative for developers who need to understand and maintain this workflow.
 """
-    
+
     ai_response = client.generate(prompt)
-    
+
     if ai_response:
         return f"# Workflow Documentation\n\n{ai_response}\n\n---\n*Documentation generated with WorkflowForge AI*"
     else:
@@ -100,10 +101,10 @@ def _template_generate_readme(workflow_content: str, platform: str) -> str:
     """Generate basic README using templates."""
     platform_name = {
         "github": "GitHub Actions",
-        "jenkins": "Jenkins Pipeline", 
-        "codebuild": "AWS CodeBuild"
+        "jenkins": "Jenkins Pipeline",
+        "codebuild": "AWS CodeBuild",
     }.get(platform, platform.title())
-    
+
     return f"""# {platform_name} Workflow
 
 ## Overview

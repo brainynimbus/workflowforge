@@ -1,11 +1,14 @@
 """Tests for validation utilities."""
 
 import pytest
-from workflowforge import (
-    validate_job_name, validate_step_name, validate_secret_name,
-    validate_workflow_yaml
-)
 import yaml
+
+from workflowforge import (
+    validate_job_name,
+    validate_secret_name,
+    validate_step_name,
+    validate_workflow_yaml,
+)
 
 
 def test_validate_job_name():
@@ -29,7 +32,7 @@ def test_validate_workflow_yaml():
     """Test workflow YAML validation."""
     # Test basic validation functionality
     invalid_yaml = "invalid: yaml: content: ["
-    
+
     errors = validate_workflow_yaml(invalid_yaml)
     assert len(errors) > 0
     assert any("YAML syntax error" in error for error in errors)

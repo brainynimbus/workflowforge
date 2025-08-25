@@ -84,7 +84,7 @@ workflow.generate_diagram("pdf")  # PDF document
 
 ```python
 from workflowforge import (
-    Workflow, Job, 
+    Workflow, Job,
     action, run,
     on_push, on_pull_request
 )
@@ -115,7 +115,7 @@ workflow.save(".github/workflows/hello.yml", generate_readme=True, generate_diag
 
 ```python
 from workflowforge import (
-    JenkinsPipeline, stage, 
+    JenkinsPipeline, stage,
     agent_docker, pipeline
 )
 
@@ -277,9 +277,9 @@ Contributions are welcome! Please:
 
 ## 👨‍💻 Author & Maintainer
 
-**Brainy Nimbus, LLC** - We love opensource! 💖  
-Website: [brainynimbus.io](https://brainynimbus.io)  
-Email: contact@brainynimbus.io  
+**Brainy Nimbus, LLC** - We love opensource! 💖
+Website: [brainynimbus.io](https://brainynimbus.io)
+Email: contact@brainynimbus.io
 GitHub: [@brainynimbus](https://github.com/brainynimbus)
 
 ## 📄 License
