@@ -191,3 +191,12 @@ htmlcov/
 # Build artifacts
 *.whl
 *.tar.gz
+
+# WorkflowForge generated files (ignore workflow generation scripts and outputs)
+create_*workflow*.py
+create_*pipeline*.py
+*.dot
+*_README.md
+*workflow*.png
+*pipeline*.png
+*buildspec*.png

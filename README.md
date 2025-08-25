@@ -277,7 +277,7 @@ Contributions are welcome! Please:
 
 ## 👨‍💻 Author & Maintainer
 
-**Brainy Nimbus, LLC**  
+**Brainy Nimbus, LLC** - We love opensource! 💖  
 Website: [brainynimbus.io](https://brainynimbus.io)  
 Email: contact@brainynimbus.io  
 GitHub: [@brainynimbus](https://github.com/brainynimbus)
