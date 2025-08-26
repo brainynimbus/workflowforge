@@ -1,5 +1,14 @@
 # WorkflowForge 🔨
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/release/python-3110/)
+[![Python 3.12](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/downloads/release/python-3120/)
+[![Python 3.13](https://img.shields.io/badge/python-3.13-blue.svg)](https://www.python.org/downloads/release/python-3130/)
+[![PyPI version](https://badge.fury.io/py/workflowforge.svg)](https://badge.fury.io/py/workflowforge)
+[![Downloads](https://pepy.tech/badge/workflowforge)](https://pepy.tech/project/workflowforge)
+[![Test PyPI](https://img.shields.io/badge/Test%20PyPI-published-green)](https://test.pypi.org/project/workflowforge/)
+[![Tests](https://github.com/brainynimbus/workflowforge/workflows/Publish%20WorkflowForge%20to%20PyPI/badge.svg)](https://github.com/brainynimbus/workflowforge/actions)
+
 A robust and flexible library for creating GitHub Actions workflows, Jenkins pipelines, and AWS CodeBuild BuildSpecs programmatically in Python.
 
 ## ✨ Features

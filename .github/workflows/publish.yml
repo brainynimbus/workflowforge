@@ -27,6 +27,10 @@ jobs:
       name: Check code formatting
     - run: isort --check-only src/ tests/
       name: Check import sorting
+    - run: flake8 src/ tests/ examples/ create_pypi_workflow.py
+      name: Lint with flake8
+    - run: mypy src/
+      name: Type check with mypy
     - run: pytest tests/ --cov=workflowforge --cov-report=xml
       name: Run tests with coverage
     strategy:
