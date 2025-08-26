@@ -21,18 +21,22 @@ job.add_step(github_actions.action("actions/checkout@v4"))
 ## Examples
 
 ### GitHub Actions
+
 - **basic_ci.py** - Simple CI pipeline with checkout and hello world
 - **python_matrix.py** - Matrix testing across Python versions and OS
 
 ### Jenkins
+
 - **maven_build.py** - Maven build pipeline with multiple stages
 
 ### AWS CodeBuild
+
 - **node_app.py** - Node.js application build with testing and artifacts
 
 ## Running Examples
 
 Run individual examples:
+
 ```bash
 python examples/github_actions/basic_ci.py
 python examples/jenkins/maven_build.py
@@ -40,6 +44,7 @@ python examples/codebuild/node_app.py
 ```
 
 Run all examples at once:
+
 ```bash
 python examples/run_all_examples.py
 ```
