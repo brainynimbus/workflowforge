@@ -48,7 +48,7 @@ jobs:
       name: Install security tools
     - run: bandit -r src/
       name: Security scan with Bandit
-    - run: safety check --json || safety check --short-report
+    - run: safety scan --json || safety scan --short-report
       name: Check dependencies for vulnerabilities
     runs-on: ubuntu-latest
   build:
@@ -84,8 +84,9 @@ jobs:
     - uses: pypa/gh-action-pypi-publish@release/v1
       name: Publish to TestPyPI
       with:
-        repository-url: https://test.pypi.org/legacy/
-        print-hash: 'true'
+        repository: testpypi
+        username: __token__
+        password: ${{ secrets.TESTPYPI_API_TOKEN }}
     needs: build
     environment:
       name: testpypi
@@ -104,7 +105,8 @@ jobs:
     - uses: pypa/gh-action-pypi-publish@release/v1
       name: Publish to PyPI
       with:
-        print-hash: 'true'
+        username: __token__
+        password: ${{ secrets.PYPI_API_TOKEN }}
     needs: build
     environment:
       name: pypi
