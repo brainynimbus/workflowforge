@@ -42,6 +42,7 @@ print(readme)
 ```
 
 **Features:**
+
 - ✅ **Completely free** - no API keys or cloud services
 - ✅ **Works offline** - local AI processing
 - ✅ **Optional** - gracefully falls back to templates if Ollama not available
@@ -74,6 +75,7 @@ workflow.generate_diagram("pdf")  # PDF document
 ```
 
 **Features:**
+
 - ✅ **Automatic generation** - every pipeline gets a visual diagram
 - ✅ **Multiple formats** - PNG, SVG, PDF, DOT
 - ✅ **Smart fallback** - DOT files if Graphviz not installed
@@ -236,17 +238,20 @@ workflow.add_job("deploy", deploy_job)
 ### Platform Support
 
 **GitHub Actions:**
+
 - `on_push()`, `on_pull_request()`, `on_schedule()`, `on_workflow_dispatch()`
 - `action()`, `run()` steps
 - `secret()`, `variable()`, `github_context()` for credentials
 - Build matrices, strategies, environments
 
 **Jenkins:**
+
 - `pipeline()`, `stage()`, `agent_docker()`, `agent_any()`
 - `jenkins_credential()`, `jenkins_env()`, `jenkins_param()`
 - Shared libraries, parameters, post actions
 
 **AWS CodeBuild:**
+
 - `buildspec()`, `phase()`, `environment()`, `artifacts()`
 - `codebuild_secret()`, `codebuild_parameter()`, `codebuild_env()`
 - Runtime versions, caching, reports
@@ -278,8 +283,9 @@ Contributions are welcome! Please:
 ## 👨‍💻 Author & Maintainer
 
 **Brainy Nimbus, LLC** - We love opensource! 💖
+
 Website: [brainynimbus.io](https://brainynimbus.io)
-Email: contact@brainynimbus.io
+Email: <info@brainynimbus.io>
 GitHub: [@brainynimbus](https://github.com/brainynimbus)
 
 ## 📄 License

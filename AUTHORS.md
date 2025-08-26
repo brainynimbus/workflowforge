@@ -4,7 +4,7 @@
 
 **Brainy Nimbus, LLC**
 Website: [brainynimbus.io](https://brainynimbus.io)
-Email: contact@brainynimbus.io
+Email: <info@brainynimbus.io>
 GitHub: [@brainynimbus](https://github.com/brainynimbus)
 
 ## Contributions

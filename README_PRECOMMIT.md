@@ -18,6 +18,7 @@ pre-commit install --hook-type commit-msg
 ## What Gets Checked
 
 ### Code Quality
+
 - **Black**: Code formatting
 - **isort**: Import sorting
 - **Flake8**: Style and syntax checking
@@ -25,6 +26,7 @@ pre-commit install --hook-type commit-msg
 - **PyUpgrade**: Modern Python syntax
 
 ### File Quality
+
 - Trailing whitespace removal
 - End-of-file fixing
 - YAML/TOML validation
@@ -32,13 +34,14 @@ pre-commit install --hook-type commit-msg
 - Merge conflict detection
 
 ### Commit Messages
+
 - **Conventional Commits**: Enforces format like `feat:`, `fix:`, `docs:`
 
 ## Commit Message Format
 
 Use conventional commit format:
 
-```
+```xml
 <type>: <description>
 
 [optional body]
@@ -47,6 +50,7 @@ Use conventional commit format:
 ```
 
 **Types:**
+
 - `feat`: New feature
 - `fix`: Bug fix
 - `docs`: Documentation
@@ -56,6 +60,7 @@ Use conventional commit format:
 - `chore`: Maintenance tasks
 
 **Examples:**
+
 ```bash
 git commit -m "feat: add AI documentation generation"
 git commit -m "fix: resolve import conflicts in tests"
