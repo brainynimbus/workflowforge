@@ -5,6 +5,10 @@ This library allows you to create GitHub Actions workflows programmatically,
 with type validation, autocompletion, and an intuitive API.
 """
 
+# Platform-specific modules
+from . import codebuild as aws_codebuild
+from . import github_actions_module as github_actions
+from . import jenkins as jenkins_platform
 from .ai_documentation import (
     OllamaClient,
     ai_documentation_client,
@@ -98,7 +102,7 @@ from .validation import (
 from .visualization import PipelineVisualizer, visualizer
 from .workflow import Workflow
 
-__version__ = "1.0b1"
+__version__ = "1.0b2"
 __all__ = [
     "Workflow",
     "Job",
@@ -192,4 +196,8 @@ __all__ = [
     # Schema validation
     "validate_github_actions_schema",
     "validate_workflow_yaml",
+    # Platform modules
+    "github_actions",
+    "jenkins_platform",
+    "aws_codebuild",
 ]

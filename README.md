@@ -20,6 +20,22 @@ A robust and flexible library for creating GitHub Actions workflows, Jenkins pip
 pip install workflowforge
 ```
 
+## 📚 Examples
+
+Check out the `examples/` directory for complete working examples:
+
+```bash
+# Run all examples to see the new modular structure in action
+python examples/run_all_examples.py
+
+# Or run individual examples
+python examples/github_actions/basic_ci.py
+python examples/jenkins/maven_build.py
+python examples/codebuild/node_app.py
+```
+
+This will generate actual pipeline files and diagrams using the new import structure.
+
 ## 🤖 AI Documentation (Optional)
 
 WorkflowForge can automatically generate comprehensive README documentation for your workflows using **Ollama** (free local AI):
@@ -84,23 +100,21 @@ workflow.generate_diagram("pdf")  # PDF document
 
 ## 📖 Basic Usage
 
-```python
-from workflowforge import (
-    Workflow, Job,
-    action, run,
-    on_push, on_pull_request
-)
+### New Modular Import Style (Recommended)
 
-# Create workflow
-workflow = Workflow(
+```python
+from workflowforge import github_actions
+
+# Create workflow using snake_case functions
+workflow = github_actions.workflow(
     name="My Workflow",
-    on=on_push(branches=["main"])
+    on=github_actions.on_push(branches=["main"])
 )
 
 # Create job
-job = Job(runs_on="ubuntu-latest")
-job.add_step(action("actions/checkout@v4", name="Checkout"))
-job.add_step(run("echo 'Hello World!'", name="Say Hello"))
+job = github_actions.job(runs_on="ubuntu-latest")
+job.add_step(github_actions.action("actions/checkout@v4", name="Checkout"))
+job.add_step(github_actions.run("echo 'Hello World!'", name="Say Hello"))
 
 # Add job to workflow
 workflow.add_job("hello", job)
@@ -113,47 +127,62 @@ workflow.save(".github/workflows/hello.yml", generate_readme=True, generate_diag
 # Creates: hello.yml + hello_README.md + My_Workflow.png
 ```
 
-### Jenkins Pipeline Usage
+### Legacy Import Style (Still Supported)
 
 ```python
 from workflowforge import (
-    JenkinsPipeline, stage,
-    agent_docker, pipeline
+    Workflow, Job,
+    action, run,
+    on_push, on_pull_request
 )
 
-# Create Jenkins pipeline
-jp = pipeline()
-jp.set_agent(agent_docker("maven:3.9.3-eclipse-temurin-17"))
+# Create workflow (PascalCase classes)
+workflow = Workflow(
+    name="My Workflow",
+    on=on_push(branches=["main"])
+)
+```
+
+### Jenkins Pipeline Usage
+
+```python
+from workflowforge import jenkins_platform
+
+# Create Jenkins pipeline using snake_case
+pipeline = jenkins_platform.pipeline()
+pipeline.set_agent(jenkins_platform.agent_docker("maven:3.9.3-eclipse-temurin-17"))
 
 # Add stages
-build_stage = stage("Build")
+build_stage = jenkins_platform.stage("Build")
 build_stage.add_step("mvn clean compile")
-jp.add_stage(build_stage)
+pipeline.add_stage(build_stage)
 
-# Generate Jenkinsfile
-print(jp.to_jenkinsfile())
-jp.save("Jenkinsfile")
+# Generate Jenkinsfile with diagram
+pipeline.save("Jenkinsfile", generate_diagram=True)
+# Creates: Jenkinsfile + jenkins_pipeline.png
 ```
 
 ### AWS CodeBuild BuildSpec Usage
 
 ```python
-from workflowforge import (
-    buildspec, phase, environment, artifacts
-)
+from workflowforge import aws_codebuild
 
-# Create BuildSpec
-spec = buildspec()
+# Create BuildSpec using snake_case
+spec = aws_codebuild.buildspec()
 
 # Add environment
-env = environment()
+env = aws_codebuild.environment()
 env.add_variable("JAVA_HOME", "/usr/lib/jvm/java-17-openjdk")
 spec.set_env(env)
 
 # Add build phase
-build_phase = phase()
+build_phase = aws_codebuild.phase()
 build_phase.add_command("mvn clean package")
 spec.set_build_phase(build_phase)
+
+# Set artifacts
+artifacts_obj = aws_codebuild.artifacts(["target/*.jar"])
+spec.set_artifacts(artifacts_obj)
 
 # Generate buildspec.yml with AI documentation and diagram
 spec.save("buildspec.yml", generate_readme=True, use_ai=True, generate_diagram=True)
@@ -192,18 +221,60 @@ else:
     print("Using template documentation (Ollama not running)")
 ```
 
+## 🆕 New Modular Import Structure
+
+WorkflowForge now supports **platform-specific imports** with **snake_case naming** following Python conventions:
+
+### Platform Modules
+
+```python
+# Import specific platforms
+from workflowforge import github_actions, jenkins_platform, aws_codebuild
+
+# Or use short aliases
+from workflowforge import github_actions as gh
+from workflowforge import jenkins_platform as jenkins
+from workflowforge import aws_codebuild as cb
+```
+
+### Benefits
+
+✅ **Platform separation** - Clear namespace for each platform
+✅ **Snake case naming** - Follows Python PEP 8 conventions
+✅ **IDE autocompletion** - Better IntelliSense support
+✅ **Backwards compatibility** - Old imports still work
+✅ **Shorter code** - `gh.action()` vs `github_actions.action()`
+
+### Migration Guide
+
+```python
+# Old style (still works)
+from workflowforge import Workflow, Job, action, run, on_push
+
+workflow = Workflow(name="CI", on=on_push())
+job = Job(runs_on="ubuntu-latest")
+job.add_step(action("actions/checkout@v4"))
+
+# New style (recommended)
+from workflowforge import github_actions as gh
+
+workflow = gh.workflow(name="CI", on=gh.on_push())
+job = gh.job(runs_on="ubuntu-latest")
+job.add_step(gh.action("actions/checkout@v4"))
+```
+
 ## 🔧 Advanced Examples
 
 ### Build Matrix Workflow
 
 ```python
-from workflowforge import matrix, strategy
+from workflowforge import github_actions as gh
 
-job = Job(
+job = gh.job(
     runs_on="ubuntu-latest",
-    strategy=strategy(
-        matrix=matrix(
-            python_version=["3.8", "3.9", "3.10", "3.11"],
+    strategy=gh.strategy(
+        matrix=gh.matrix(
+            python_version=["3.11", "3.12", "3.13"],
             os=["ubuntu-latest", "windows-latest"]
         )
     )
@@ -213,12 +284,14 @@ job = Job(
 ### Multiple Triggers
 
 ```python
-workflow = Workflow(
+from workflowforge import github_actions as gh
+
+workflow = gh.workflow(
     name="CI/CD",
     on=[
-        on_push(branches=["main"]),
-        on_pull_request(branches=["main"]),
-        on_schedule("0 2 * * *")  # Daily at 2 AM
+        gh.on_push(branches=["main"]),
+        gh.on_pull_request(branches=["main"]),
+        gh.on_schedule("0 2 * * *")  # Daily at 2 AM
     ]
 )
 ```
@@ -226,9 +299,13 @@ workflow = Workflow(
 ### Jobs with Dependencies
 
 ```python
-test_job = Job(runs_on="ubuntu-latest")
-deploy_job = Job(runs_on="ubuntu-latest").set_needs("test")
+from workflowforge import github_actions as gh
 
+test_job = gh.job(runs_on="ubuntu-latest")
+deploy_job = gh.job(runs_on="ubuntu-latest")
+deploy_job.needs = "test"
+
+workflow = gh.workflow(name="CI/CD")
 workflow.add_job("test", test_job)
 workflow.add_job("deploy", deploy_job)
 ```
