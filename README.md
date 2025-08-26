@@ -294,6 +294,17 @@ MIT License - see [LICENSE](LICENSE) for details.
 
 ## 🔗 Links
 
+**GitHub Actions:**
 - [GitHub Actions Documentation](https://docs.github.com/en/actions)
 - [Actions Marketplace](https://github.com/marketplace?type=actions)
 - [Workflow Syntax](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions)
+
+**Jenkins:**
+- [Jenkins Documentation](https://www.jenkins.io/doc/)
+- [Pipeline Syntax](https://www.jenkins.io/doc/book/pipeline/syntax/)
+- [Jenkins Plugins](https://plugins.jenkins.io/)
+
+**AWS CodeBuild:**
+- [CodeBuild Documentation](https://docs.aws.amazon.com/codebuild/)
+- [BuildSpec Reference](https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html)
+- [CodeBuild Samples](https://docs.aws.amazon.com/codebuild/latest/userguide/samples.html)
