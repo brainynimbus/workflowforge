@@ -34,8 +34,8 @@ jobs:
       name: "Check code formatting"
     - run: "isort --check-only src/ tests/"
       name: "Check import sorting"
-    # - run: "mypy src/"
-    #   name: "Type checking"
+    - run: "mypy src/"
+      name: "Type checking"
     - run: "pytest tests/ --cov=workflowforge --cov-report=xml"
       name: "Run tests with coverage"
   security:
@@ -51,7 +51,7 @@ jobs:
       name: "Install security tools"
     - run: "bandit -r src/"
       name: "Security scan with Bandit"
-    - run: "safety check --json || safety check --short-report"
+    - run: "safety check"
       name: "Check dependencies for vulnerabilities"
   build:
     runs-on: "ubuntu-latest"
