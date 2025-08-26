@@ -51,7 +51,7 @@ jobs:
       name: "Install security tools"
     - run: "bandit -r src/"
       name: "Security scan with Bandit"
-    - run: "safety scan"
+    - run: "safety check --json || safety check --short-report"
       name: "Check dependencies for vulnerabilities"
   build:
     runs-on: "ubuntu-latest"
