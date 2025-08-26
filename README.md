@@ -5,7 +5,7 @@
 [![Python 3.12](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/downloads/release/python-3120/)
 [![Python 3.13](https://img.shields.io/badge/python-3.13-blue.svg)](https://www.python.org/downloads/release/python-3130/)
 [![PyPI version](https://badge.fury.io/py/workflowforge.svg)](https://badge.fury.io/py/workflowforge)
-[![Downloads](https://pepy.tech/badge/workflowforge)](https://pepy.tech/project/workflowforge)
+<!-- [![Downloads](https://pepy.tech/badge/workflowforge)](https://pepy.tech/project/workflowforge) -->
 [![Test PyPI](https://img.shields.io/badge/Test%20PyPI-published-green)](https://test.pypi.org/project/workflowforge/)
 [![Tests](https://github.com/brainynimbus/workflowforge/workflows/Publish%20WorkflowForge%20to%20PyPI/badge.svg)](https://github.com/brainynimbus/workflowforge/actions)
 
@@ -34,8 +34,6 @@ pip install workflowforge
 Check out the `examples/` directory for complete working examples:
 
 ```bash
-# Run all examples to see the new modular structure in action
-python examples/run_all_examples.py
 
 # Or run individual examples
 python examples/github_actions/basic_ci.py
@@ -381,16 +379,19 @@ MIT License - see [LICENSE](LICENSE) for details.
 ## 🔗 Links
 
 **GitHub Actions:**
+
 - [GitHub Actions Documentation](https://docs.github.com/en/actions)
 - [Actions Marketplace](https://github.com/marketplace?type=actions)
 - [Workflow Syntax](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions)
 
 **Jenkins:**
+
 - [Jenkins Documentation](https://www.jenkins.io/doc/)
 - [Pipeline Syntax](https://www.jenkins.io/doc/book/pipeline/syntax/)
 - [Jenkins Plugins](https://plugins.jenkins.io/)
 
 **AWS CodeBuild:**
+
 - [CodeBuild Documentation](https://docs.aws.amazon.com/codebuild/)
 - [BuildSpec Reference](https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html)
 - [CodeBuild Samples](https://docs.aws.amazon.com/codebuild/latest/userguide/samples.html)
