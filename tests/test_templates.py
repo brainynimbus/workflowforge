@@ -2,7 +2,11 @@
 
 import yaml
 
-from workflowforge import docker_build_template, node_ci_template, python_ci_template
+from workflowforge.templates import (
+    docker_build_template,
+    node_ci_template,
+    python_ci_template,
+)
 
 
 def test_python_ci_template():

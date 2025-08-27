@@ -1,6 +1,6 @@
 """Tests for secrets and variables."""
 
-from workflowforge import github_context, secret, variable
+from workflowforge.secrets import github_context, secret, variable
 
 
 def test_secret_creation():

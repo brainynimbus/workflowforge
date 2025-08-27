@@ -1,10 +1,6 @@
 """Tests for validation utilities."""
 
-from workflowforge import (
-    validate_job_name,
-    validate_secret_name,
-    validate_workflow_yaml,
-)
+from workflowforge.validation import validate_job_name, validate_secret_name
 
 
 def test_validate_job_name():
@@ -24,11 +20,11 @@ def test_validate_secret_name():
     assert not validate_secret_name("123SECRET")
 
 
-def test_validate_workflow_yaml():
-    """Test workflow YAML validation."""
-    # Test basic validation functionality
-    invalid_yaml = "invalid: yaml: content: ["
+def test_validate_workflow_structure():
+    """Test workflow structure validation."""
+    from workflowforge.validation import validate_workflow_structure
 
-    errors = validate_workflow_yaml(invalid_yaml)
+    invalid_workflow = {"name": "test"}
+    errors = validate_workflow_structure(invalid_workflow)
     assert len(errors) > 0
-    assert any("YAML syntax error" in error for error in errors)
+    assert any("must have an 'on' field" in error for error in errors)

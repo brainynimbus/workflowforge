@@ -2,16 +2,11 @@
 
 import yaml
 
-from workflowforge import (
-    Job,
-    Workflow,
-    action,
-    matrix,
-    on_pull_request,
-    on_push,
-    run,
-    strategy,
-)
+from workflowforge.job import Job
+from workflowforge.step import action, run
+from workflowforge.strategy import matrix, strategy
+from workflowforge.triggers import on_pull_request, on_push
+from workflowforge.workflow import Workflow
 
 
 def test_workflow_basic_creation():

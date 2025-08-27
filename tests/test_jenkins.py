@@ -1,6 +1,6 @@
 """Tests for Jenkins pipeline generation."""
 
-from workflowforge import agent_docker, pipeline, stage
+from workflowforge.jenkins import agent_docker, pipeline, stage
 
 
 def test_jenkins_pipeline_creation():
