@@ -10,7 +10,7 @@ from . import codebuild as aws_codebuild
 from . import github_actions_module as github_actions
 from . import jenkins as jenkins_platform
 
-__version__ = "1.0b2"
+__version__ = "1.0b4"
 __all__ = [
     "github_actions",
     "jenkins_platform",

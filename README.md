@@ -13,7 +13,6 @@
 [![Checked with mypy][mypy-badge]][mypy-url]
 [![Formatted with Black][black-badge]][black-url]
 [![Imports: isort][isort-badge]][isort-url]
-[![YAML: ruamel.yaml][ruamel-badge]][ruamel-url]
 
 [license-badge]: https://img.shields.io/badge/License-MIT-yellow.svg
 [license-url]: https://opensource.org/licenses/MIT
@@ -37,8 +36,6 @@
 [black-url]: https://github.com/psf/black
 [isort-badge]: https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336
 [isort-url]: https://pycqa.github.io/isort/
-[ruamel-badge]: https://img.shields.io/badge/YAML-ruamel.yaml-blue
-[ruamel-url]: https://pypi.org/project/ruamel.yaml/
 
 A robust and flexible library for creating GitHub Actions workflows, Jenkins pipelines, and AWS CodeBuild BuildSpecs programmatically in Python.
 

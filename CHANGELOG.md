@@ -5,6 +5,24 @@ All notable changes to WorkflowForge will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0b4] - 2024-12-19
+
+### Added
+- TRUE dogfooding: WorkflowForge generates its own GitHub Actions workflows
+- Professional CI/CD pipeline with Python 3.11, 3.12, 3.13 test matrix
+- Security scanning integration with Bandit and Safety tools
+- OIDC trusted publishing for PyPI deployment (no API tokens needed)
+- Automated TestPyPI publishing on main branch merges
+
+### Changed
+- Enhanced publish workflow with comprehensive quality checks
+- Integrated security scanning into CI/CD pipeline
+- Improved project automation with self-generated workflows
+
+### Fixed
+- Removed generated diagram artifacts to maintain clean repository
+- Eliminated image pollution in project structure
+
 ## [1.0b3] - 2024-12-19
 
 ### Added
