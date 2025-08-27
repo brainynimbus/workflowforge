@@ -2,7 +2,7 @@
 
 from typing import Any
 
-import yaml
+from ruamel.yaml import YAML
 
 # Simplified GitHub Actions schema validation
 GITHUB_ACTIONS_SCHEMA = {
@@ -110,8 +110,9 @@ def validate_yaml_syntax(yaml_content: str) -> list[str]:
     """Validate YAML syntax."""
     errors = []
     try:
-        yaml.safe_load(yaml_content)
-    except yaml.YAMLError as e:
+        yaml = YAML(typ="safe")
+        yaml.load(yaml_content)
+    except Exception as e:
         errors.append(f"YAML syntax error: {str(e)}")
     return errors
 
@@ -127,7 +128,8 @@ def validate_workflow_yaml(yaml_content: str) -> list[str]:
 
     # Parse and validate structure
     try:
-        workflow_dict = yaml.safe_load(yaml_content)
+        yaml = YAML(typ="safe")
+        workflow_dict = yaml.load(yaml_content)
         schema_errors = validate_github_actions_schema(workflow_dict)
         errors.extend(schema_errors)
     except Exception as e:

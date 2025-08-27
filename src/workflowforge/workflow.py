@@ -2,8 +2,8 @@
 
 from typing import Any
 
-import yaml
 from pydantic import BaseModel, Field
+from ruamel.yaml import YAML
 
 from .job import Job
 from .triggers import Trigger
@@ -62,9 +62,18 @@ class Workflow(BaseModel):
         if self.permissions:
             workflow_dict["permissions"] = self.permissions
 
-        yaml_content = yaml.dump(
-            workflow_dict, default_flow_style=False, sort_keys=False
-        )
+        yaml = YAML()
+        yaml.default_flow_style = False
+        yaml.indent(mapping=2, sequence=4, offset=2)
+        yaml.width = 120
+        yaml.preserve_quotes = True
+
+        from io import StringIO
+
+        stream = StringIO()
+        yaml.dump(workflow_dict, stream)
+        yaml_content = stream.getvalue()
+
         return f"# Do not modify - Generated with WorkflowForge\n{yaml_content}"
 
     def generate_readme(self, use_ai: bool = True, ai_model: str = "llama3.2") -> str:

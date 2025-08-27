@@ -2,8 +2,8 @@
 
 from typing import Any
 
-import yaml
 from pydantic import BaseModel, Field
+from ruamel.yaml import YAML
 
 
 class BuildPhase(BaseModel):
@@ -249,7 +249,18 @@ class BuildSpec(BaseModel):
         if self.reports:
             data["reports"] = self.reports
 
-        yaml_content = yaml.dump(data, default_flow_style=False, sort_keys=False)
+        yaml = YAML()
+        yaml.default_flow_style = False
+        yaml.indent(mapping=2, sequence=4, offset=2)
+        yaml.width = 120
+        yaml.preserve_quotes = True
+
+        from io import StringIO
+
+        stream = StringIO()
+        yaml.dump(data, stream)
+        yaml_content = stream.getvalue()
+
         return f"# Do not modify - Generated with WorkflowForge\n{yaml_content}"
 
     def generate_readme(self, use_ai: bool = True, ai_model: str = "llama3.2") -> str:
