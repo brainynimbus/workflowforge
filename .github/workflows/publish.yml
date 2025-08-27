@@ -91,8 +91,6 @@ jobs:
       name: Publish to TestPyPI
       with:
         repository-url: https://test.pypi.org/legacy/
-        user: __token__
-        password: ${{ secrets.TESTPYPI_API_TOKEN }}
     needs: build
     environment:
       name: testpypi
