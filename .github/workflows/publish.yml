@@ -91,8 +91,6 @@ jobs:
       name: Publish to TestPyPI
       with:
         repository-url: https://test.pypi.org/legacy/
-        user: __token__
-        password: ${{ secrets.TESTPYPI_API_TOKEN }}
     needs: build
     environment:
       name: testpypi
@@ -110,9 +108,6 @@ jobs:
         path: dist/
     - uses: pypa/gh-action-pypi-publish@release/v1
       name: Publish to PyPI
-      with:
-        user: __token__
-        password: ${{ secrets.PYPI_API_TOKEN }}
     needs: build
     environment:
       name: pypi
