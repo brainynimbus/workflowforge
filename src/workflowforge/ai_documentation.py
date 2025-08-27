@@ -17,7 +17,7 @@ class OllamaClient(BaseModel):
         """Check if Ollama is running and accessible."""
         try:
             response = requests.get(f"{self.base_url}/api/tags", timeout=5)
-            return response.status_code == 200
+            return bool(response.status_code == 200)
         except Exception:
             return False
 

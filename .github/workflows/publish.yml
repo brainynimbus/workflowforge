@@ -30,7 +30,7 @@ jobs:
         name: Check import sorting
       - run: flake8 src/ tests/ examples/
         name: Lint with flake8
-      - run: mypy src/
+      - run: mypy --install-types --non-interactive src/
         name: Type check with mypy
       - run: pytest tests/ --cov=workflowforge --cov-report=xml
         name: Run tests with coverage
