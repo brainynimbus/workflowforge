@@ -13,17 +13,17 @@ def main():
 
     # Build stage
     build_stage = jenkins_platform.stage("Build")
-    build_stage.add_step("mvn clean compile")
+    build_stage.add_step("sh 'mvn clean compile'")
     pipeline.add_stage(build_stage)
 
     # Test stage
     test_stage = jenkins_platform.stage("Test")
-    test_stage.add_step("mvn test")
+    test_stage.add_step("sh 'mvn test'")
     pipeline.add_stage(test_stage)
 
     # Package stage
     package_stage = jenkins_platform.stage("Package")
-    package_stage.add_step("mvn package")
+    package_stage.add_step("sh 'mvn package'")
     pipeline.add_stage(package_stage)
 
     # Save pipeline

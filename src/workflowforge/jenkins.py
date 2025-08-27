@@ -1,6 +1,6 @@
 """Jenkins pipeline generation for WorkflowForge."""
 
-from typing import Any, Dict, List, Optional, Union
+from typing import Any
 
 from pydantic import BaseModel, Field
 
@@ -209,7 +209,7 @@ class JenkinsPipeline(BaseModel):
             lines.append("    }")
 
         lines.append("}")
-        return "\n".join(lines)
+        return "\n".join(lines) + "\n"
 
     def _format_stage(self, stage: JenkinsStage, indent: int) -> list[str]:
         """Format a stage for Jenkinsfile."""

@@ -7,17 +7,17 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                mvn clean compile
+                sh 'mvn clean compile'
             }
         }
         stage('Test') {
             steps {
-                mvn test
+                sh 'mvn test'
             }
         }
         stage('Package') {
             steps {
-                mvn package
+                sh 'mvn package'
             }
         }
     }

@@ -1,6 +1,6 @@
 """Clase principal para definir workflows de GitHub Actions."""
 
-from typing import Any, Dict, List, Optional, Union
+from typing import Any
 
 import yaml
 from pydantic import BaseModel, Field
