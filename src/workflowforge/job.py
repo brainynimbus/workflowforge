@@ -10,7 +10,7 @@ from .strategy import Strategy
 
 
 class Job(BaseModel):
-    """Representa un job en un workflow de GitHub Actions."""
+    """Represents a job in a GitHub Actions workflow."""
 
     runs_on: str | list[str] = Field(..., description="Runner donde ejecutar el job")
     steps: list[Step] = Field(default_factory=list, description="Pasos del job")
@@ -36,19 +36,19 @@ class Job(BaseModel):
     permissions: dict[str, str] | None = Field(None, description="Permisos del job")
 
     def add_step(self, step: Step) -> "Job":
-        """Añade un paso al job."""
+        """Add a step to the job."""
         self.steps.append(step)
         return self
 
     def set_env(self, key: str, value: str) -> "Job":
-        """Establece una variable de entorno."""
+        """Set an environment variable."""
         if self.env is None:
             self.env = {}
         self.env[key] = value
         return self
 
     def set_needs(self, *job_ids: str) -> "Job":
-        """Establece las dependencias del job."""
+        """Set job dependencies."""
         if len(job_ids) == 1:
             self.needs = job_ids[0]
         else:
@@ -56,29 +56,29 @@ class Job(BaseModel):
         return self
 
     def set_condition(self, condition: str) -> "Job":
-        """Establece la condición para ejecutar el job."""
+        """Set condition for job execution."""
         self.if_condition = condition
         return self
 
     def set_timeout(self, minutes: int) -> "Job":
-        """Establece el timeout del job."""
+        """Set job timeout."""
         self.timeout_minutes = minutes
         return self
 
     def set_output(self, key: str, value: str) -> "Job":
-        """Establece un output del job."""
+        """Set job output."""
         if self.outputs is None:
             self.outputs = {}
         self.outputs[key] = value
         return self
 
     def set_permissions(self, permissions: dict[str, str]) -> "Job":
-        """Establece los permisos del job."""
+        """Set job permissions."""
         self.permissions = permissions
         return self
 
     def model_dump(self, **kwargs) -> dict[str, Any]:
-        """Serializa el job a diccionario, convirtiendo steps correctamente."""
+        """Serialize job to dictionary, converting steps correctly."""
         data = super().model_dump(**kwargs)
 
         # Convertir steps usando su método to_dict()

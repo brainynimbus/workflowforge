@@ -6,7 +6,7 @@ from pydantic import BaseModel, Field
 
 
 class Matrix(BaseModel):
-    """Representa una matriz de build."""
+    """Represents a build matrix."""
 
     model_config = {"extra": "allow"}
 
@@ -18,20 +18,20 @@ class Matrix(BaseModel):
     )
 
     def model_dump(self, **kwargs) -> dict[str, Any]:
-        """Serializa la matriz incluyendo variables dinámicas."""
+        """Serialize matrix including dynamic variables."""
         result = super().model_dump(**kwargs)
         return {k: v for k, v in result.items() if v is not None}
 
 
 class Strategy(BaseModel):
-    """Representa una estrategia de ejecución para jobs."""
+    """Represents execution strategy for jobs."""
 
     matrix: Matrix | None = Field(None, description="Matriz de configuraciones")
     fail_fast: bool | None = Field(None, description="Fallar rápido si hay error")
     max_parallel: int | None = Field(None, description="Máximo de jobs paralelos")
 
     def model_dump(self, **kwargs) -> dict[str, Any]:
-        """Serializa la estrategia."""
+        """Serialize strategy."""
         result = {}
 
         if self.matrix:

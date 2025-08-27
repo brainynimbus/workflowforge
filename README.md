@@ -153,21 +153,7 @@ workflow.save(".github/workflows/hello.yml", generate_readme=True, generate_diag
 # Creates: hello.yml + hello_README.md + My_Workflow.png
 ```
 
-### Legacy Import Style (Still Supported)
 
-```python
-from workflowforge import (
-    Workflow, Job,
-    action, run,
-    on_push, on_pull_request
-)
-
-# Create workflow (PascalCase classes)
-workflow = Workflow(
-    name="My Workflow",
-    on=on_push(branches=["main"])
-)
-```
 
 ### Jenkins Pipeline Usage
 
@@ -268,26 +254,10 @@ from workflowforge import aws_codebuild as cb
 ✅ **Platform separation** - Clear namespace for each platform
 ✅ **Snake case naming** - Follows Python PEP 8 conventions
 ✅ **IDE autocompletion** - Better IntelliSense support
-✅ **Backwards compatibility** - Old imports still work
+
 ✅ **Shorter code** - `gh.action()` vs `github_actions.action()`
 
-### Migration Guide
 
-```python
-# Old style (still works)
-from workflowforge import Workflow, Job, action, run, on_push
-
-workflow = Workflow(name="CI", on=on_push())
-job = Job(runs_on="ubuntu-latest")
-job.add_step(action("actions/checkout@v4"))
-
-# New style (recommended)
-from workflowforge import github_actions as gh
-
-workflow = gh.workflow(name="CI", on=gh.on_push())
-job = gh.job(runs_on="ubuntu-latest")
-job.add_step(gh.action("actions/checkout@v4"))
-```
 
 ## 🔧 Advanced Examples
 

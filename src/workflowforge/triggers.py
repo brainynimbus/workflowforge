@@ -1,4 +1,4 @@
-"""Definición de triggers para workflows de GitHub Actions."""
+"""GitHub Actions workflow trigger definitions."""
 
 from abc import ABC, abstractmethod
 from typing import Any
@@ -7,27 +7,25 @@ from pydantic import BaseModel, Field
 
 
 class Trigger(BaseModel, ABC):
-    """Clase base abstracta para triggers."""
+    """Abstract base class for triggers."""
 
     @abstractmethod
     def to_dict(self) -> str | dict[str, Any]:
-        """Convierte el trigger a formato para YAML."""
+        """Convert trigger to YAML format."""
 
 
 class PushTrigger(Trigger):
-    """Trigger para eventos push."""
+    """Trigger for push events."""
 
-    branches: list[str] | None = Field(
-        None, description="Ramas que disparan el trigger"
-    )
-    branches_ignore: list[str] | None = Field(None, description="Ramas a ignorar")
-    tags: list[str] | None = Field(None, description="Tags que disparan el trigger")
-    tags_ignore: list[str] | None = Field(None, description="Tags a ignorar")
-    paths: list[str] | None = Field(None, description="Rutas que disparan el trigger")
-    paths_ignore: list[str] | None = Field(None, description="Rutas a ignorar")
+    branches: list[str] | None = Field(None, description="Branches that trigger")
+    branches_ignore: list[str] | None = Field(None, description="Branches to ignore")
+    tags: list[str] | None = Field(None, description="Tags that trigger")
+    tags_ignore: list[str] | None = Field(None, description="Tags to ignore")
+    paths: list[str] | None = Field(None, description="Paths that trigger")
+    paths_ignore: list[str] | None = Field(None, description="Paths to ignore")
 
     def to_dict(self) -> dict[str, Any]:
-        """Convierte a diccionario."""
+        """Convert to dictionary."""
         result = {}
         if self.branches:
             result["branches"] = self.branches
@@ -46,16 +44,16 @@ class PushTrigger(Trigger):
 
 
 class PullRequestTrigger(Trigger):
-    """Trigger para eventos pull request."""
+    """Trigger for pull request events."""
 
-    types: list[str] | None = Field(None, description="Tipos de eventos PR")
-    branches: list[str] | None = Field(None, description="Ramas objetivo")
-    branches_ignore: list[str] | None = Field(None, description="Ramas a ignorar")
-    paths: list[str] | None = Field(None, description="Rutas que disparan el trigger")
-    paths_ignore: list[str] | None = Field(None, description="Rutas a ignorar")
+    types: list[str] | None = Field(None, description="PR event types")
+    branches: list[str] | None = Field(None, description="Target branches")
+    branches_ignore: list[str] | None = Field(None, description="Branches to ignore")
+    paths: list[str] | None = Field(None, description="Paths that trigger")
+    paths_ignore: list[str] | None = Field(None, description="Paths to ignore")
 
     def to_dict(self) -> dict[str, Any]:
-        """Convierte a diccionario."""
+        """Convert to dictionary."""
         result = {}
         if self.types:
             result["types"] = self.types
@@ -72,24 +70,24 @@ class PullRequestTrigger(Trigger):
 
 
 class ScheduleTrigger(Trigger):
-    """Trigger para eventos programados (cron)."""
+    """Trigger for scheduled events (cron)."""
 
-    cron: str = Field(..., description="Expresión cron")
+    cron: str = Field(..., description="Cron expression")
 
     def to_dict(self) -> dict[str, Any]:
-        """Convierte a diccionario."""
+        """Convert to dictionary."""
         return {"schedule": [{"cron": self.cron}]}
 
 
 class WorkflowDispatchTrigger(Trigger):
-    """Trigger para ejecución manual."""
+    """Trigger for manual execution."""
 
     inputs: dict[str, dict[str, Any]] | None = Field(
-        None, description="Inputs del workflow"
+        None, description="Workflow inputs"
     )
 
     def to_dict(self) -> dict[str, Any]:
-        """Convierte a diccionario."""
+        """Convert to dictionary."""
         result = {}
         if self.inputs:
             result["inputs"] = self.inputs
@@ -97,45 +95,45 @@ class WorkflowDispatchTrigger(Trigger):
 
 
 class ReleaseTrigger(Trigger):
-    """Trigger para eventos de release."""
+    """Trigger for release events."""
 
-    types: list[str] | None = Field(None, description="Tipos de eventos de release")
+    types: list[str] | None = Field(None, description="Release event types")
 
     def to_dict(self) -> dict[str, Any]:
-        """Convierte a diccionario."""
+        """Convert to dictionary."""
         result = {}
         if self.types:
             result["types"] = self.types
         return {"release": result} if result else "release"
 
 
-# Factory functions para crear triggers fácilmente
+# Factory functions for convenient trigger creation
 def on_push(
     branches: list[str] | None = None, paths: list[str] | None = None
 ) -> PushTrigger:
-    """Crea un PushTrigger de manera conveniente."""
+    """Create a PushTrigger conveniently."""
     return PushTrigger(branches=branches, paths=paths)
 
 
 def on_pull_request(
     branches: list[str] | None = None, types: list[str] | None = None
 ) -> PullRequestTrigger:
-    """Crea un PullRequestTrigger de manera conveniente."""
+    """Create a PullRequestTrigger conveniently."""
     return PullRequestTrigger(branches=branches, types=types)
 
 
 def on_schedule(cron: str) -> ScheduleTrigger:
-    """Crea un ScheduleTrigger de manera conveniente."""
+    """Create a ScheduleTrigger conveniently."""
     return ScheduleTrigger(cron=cron)
 
 
 def on_workflow_dispatch(
     inputs: dict[str, dict[str, Any]] | None = None,
 ) -> WorkflowDispatchTrigger:
-    """Crea un WorkflowDispatchTrigger de manera conveniente."""
+    """Create a WorkflowDispatchTrigger conveniently."""
     return WorkflowDispatchTrigger(inputs=inputs)
 
 
 def on_release(types: list[str] | None = None) -> ReleaseTrigger:
-    """Crea un ReleaseTrigger de manera conveniente."""
+    """Create a ReleaseTrigger conveniently."""
     return ReleaseTrigger(types=types)

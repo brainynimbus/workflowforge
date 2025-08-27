@@ -6,13 +6,13 @@ from pydantic import BaseModel, Field
 
 
 class Environment(BaseModel):
-    """Representa un entorno de despliegue."""
+    """Represents deployment environment."""
 
     name: str = Field(..., description="Nombre del entorno")
     url: str | None = Field(None, description="URL del entorno")
 
     def model_dump(self, **kwargs) -> dict[str, Any]:
-        """Serializa el entorno."""
+        """Serialize environment."""
         result = {"name": self.name}
         if self.url:
             result["url"] = self.url

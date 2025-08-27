@@ -10,7 +10,7 @@ from .triggers import Trigger
 
 
 class Workflow(BaseModel):
-    """Representa un workflow completo de GitHub Actions."""
+    """Represents a complete GitHub Actions workflow."""
 
     name: str = Field(..., description="Nombre del workflow")
     on: Trigger | list[Trigger] | dict[str, Any] = Field(
@@ -31,19 +31,19 @@ class Workflow(BaseModel):
     )
 
     def add_job(self, job_id: str, job: Job) -> "Workflow":
-        """Añade un job al workflow."""
+        """Add a job to the workflow."""
         self.jobs[job_id] = job
         return self
 
     def set_env(self, key: str, value: str) -> "Workflow":
-        """Establece una variable de entorno global."""
+        """Set a global environment variable."""
         if self.env is None:
             self.env = {}
         self.env[key] = value
         return self
 
     def to_yaml(self) -> str:
-        """Convierte el workflow a formato YAML."""
+        """Convert workflow to YAML format."""
         workflow_dict = {
             "name": self.name,
             "on": self._serialize_triggers(),
@@ -130,7 +130,7 @@ class Workflow(BaseModel):
             print(f"📊 Workflow diagram saved: {diagram_path}")
 
     def _serialize_triggers(self) -> str | list[str] | dict[str, Any]:
-        """Serializa los triggers para el YAML."""
+        """Serialize triggers for YAML output."""
         if isinstance(self.on, list):
             # Combinar múltiples triggers en un solo diccionario
             result = {}

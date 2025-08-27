@@ -22,7 +22,7 @@ class Step(BaseModel, ABC):
 
     @abstractmethod
     def to_dict(self) -> dict[str, Any]:
-        """Convierte el step a diccionario para YAML."""
+        """Convert step to dictionary for YAML."""
 
 
 class ActionStep(Step):
@@ -34,7 +34,7 @@ class ActionStep(Step):
     )
 
     def to_dict(self) -> dict[str, Any]:
-        """Convierte el ActionStep a diccionario."""
+        """Convert ActionStep to dictionary."""
         result = {"uses": self.uses}
 
         if self.name:
@@ -65,7 +65,7 @@ class RunStep(Step):
     )
 
     def to_dict(self) -> dict[str, Any]:
-        """Convierte el RunStep a diccionario."""
+        """Convert RunStep to dictionary."""
         result = {"run": self.run}
 
         if self.name:
