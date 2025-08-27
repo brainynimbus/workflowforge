@@ -23,7 +23,6 @@ jobs:
         name: Install pip
       - run: pip install -e .[dev]
         name: Install dependencies
-      # Type stubs not needed - ruamel.yaml has built-in types
       - run: black --check src/ tests/
         name: Check code formatting
       - run: isort --check-only src/ tests/
