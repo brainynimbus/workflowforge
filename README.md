@@ -10,7 +10,6 @@
 [![Python 3.13][python313-badge]][python313-url]
 [![Tests][tests-badge]][tests-url]
 [![pre-commit.ci status][precommit-badge]][precommit-url]
-[![Checked with mypy][mypy-badge]][mypy-url]
 [![Formatted with Black][black-badge]][black-url]
 [![Imports: isort][isort-badge]][isort-url]
 
@@ -30,8 +29,6 @@
 [tests-url]: https://github.com/brainynimbus/workflowforge/actions
 [precommit-badge]: https://results.pre-commit.ci/badge/github/brainynimbus/workflowforge/main.svg
 [precommit-url]: https://results.pre-commit.ci/latest/github/brainynimbus/workflowforge/main
-[mypy-badge]: http://www.mypy-lang.org/static/mypy_badge.svg
-[mypy-url]: http://mypy-lang.org/
 [black-badge]: https://img.shields.io/badge/code%20style-black-000000.svg
 [black-url]: https://github.com/psf/black
 [isort-badge]: https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336
