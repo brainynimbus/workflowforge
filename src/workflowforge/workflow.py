@@ -106,7 +106,7 @@ class Workflow(BaseModel):
 
     def save(
         self,
-        filepath: str = None,
+        filepath: str | None = None,
         generate_readme: bool = False,
         use_ai: bool = True,
         generate_diagram: bool = True,
@@ -142,7 +142,7 @@ class Workflow(BaseModel):
         """Serialize triggers for YAML output."""
         if isinstance(self.on, list):
             # Combinar múltiples triggers en un solo diccionario
-            result = {}
+            result: dict[str, Any] = {}
             for trigger in self.on:
                 if hasattr(trigger, "to_dict"):
                     trigger_dict = trigger.to_dict()

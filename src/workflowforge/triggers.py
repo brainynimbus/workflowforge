@@ -24,7 +24,7 @@ class PushTrigger(Trigger):
     paths: list[str] | None = Field(None, description="Paths that trigger")
     paths_ignore: list[str] | None = Field(None, description="Paths to ignore")
 
-    def to_dict(self) -> dict[str, Any]:
+    def to_dict(self) -> str | dict[str, Any]:
         """Convert to dictionary."""
         result = {}
         if self.branches:
@@ -52,7 +52,7 @@ class PullRequestTrigger(Trigger):
     paths: list[str] | None = Field(None, description="Paths that trigger")
     paths_ignore: list[str] | None = Field(None, description="Paths to ignore")
 
-    def to_dict(self) -> dict[str, Any]:
+    def to_dict(self) -> str | dict[str, Any]:
         """Convert to dictionary."""
         result = {}
         if self.types:
@@ -74,7 +74,7 @@ class ScheduleTrigger(Trigger):
 
     cron: str = Field(..., description="Cron expression")
 
-    def to_dict(self) -> dict[str, Any]:
+    def to_dict(self) -> str | dict[str, Any]:
         """Convert to dictionary."""
         return {"schedule": [{"cron": self.cron}]}
 
@@ -86,7 +86,7 @@ class WorkflowDispatchTrigger(Trigger):
         None, description="Workflow inputs"
     )
 
-    def to_dict(self) -> dict[str, Any]:
+    def to_dict(self) -> str | dict[str, Any]:
         """Convert to dictionary."""
         result = {}
         if self.inputs:
@@ -99,7 +99,7 @@ class ReleaseTrigger(Trigger):
 
     types: list[str] | None = Field(None, description="Release event types")
 
-    def to_dict(self) -> dict[str, Any]:
+    def to_dict(self) -> str | dict[str, Any]:
         """Convert to dictionary."""
         result = {}
         if self.types:

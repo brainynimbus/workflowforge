@@ -34,7 +34,8 @@ class OllamaClient(BaseModel):
             )
 
             if response.status_code == 200:
-                return response.json().get("response", "").strip()
+                result = response.json().get("response", "")
+                return result.strip() if isinstance(result, str) else None
             return None
         except Exception:
             return None

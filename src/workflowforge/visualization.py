@@ -2,6 +2,7 @@
 
 import os
 import tempfile
+from typing import Any
 
 from pydantic import BaseModel, Field
 
@@ -14,22 +15,22 @@ class PipelineVisualizer(BaseModel):
     )
     theme: str = Field(default="default", description="Visual theme")
 
-    def generate_github_diagram(self, workflow) -> str:
+    def generate_github_diagram(self, workflow: Any) -> str:
         """Generate diagram for GitHub Actions workflow."""
         dot_content = self._create_github_dot(workflow)
         return self._render_diagram(dot_content, f"{workflow.name}_workflow")
 
-    def generate_jenkins_diagram(self, pipeline) -> str:
+    def generate_jenkins_diagram(self, pipeline: Any) -> str:
         """Generate diagram for Jenkins pipeline."""
         dot_content = self._create_jenkins_dot(pipeline)
         return self._render_diagram(dot_content, "jenkins_pipeline")
 
-    def generate_codebuild_diagram(self, buildspec) -> str:
+    def generate_codebuild_diagram(self, buildspec: Any) -> str:
         """Generate diagram for CodeBuild spec."""
         dot_content = self._create_codebuild_dot(buildspec)
         return self._render_diagram(dot_content, "codebuild_spec")
 
-    def _create_github_dot(self, workflow) -> str:
+    def _create_github_dot(self, workflow: Any) -> str:
         """Create Graphviz DOT content for GitHub workflow."""
         dot = ["digraph GitHubWorkflow {"]
         dot.append("    rankdir=TB;")
@@ -63,7 +64,7 @@ class PipelineVisualizer(BaseModel):
         dot.append("}")
         return "\n".join(dot)
 
-    def _create_jenkins_dot(self, pipeline) -> str:
+    def _create_jenkins_dot(self, pipeline: Any) -> str:
         """Create Graphviz DOT content for Jenkins pipeline."""
         dot = ["digraph JenkinsPipeline {"]
         dot.append("    rankdir=TB;")
@@ -90,7 +91,7 @@ class PipelineVisualizer(BaseModel):
         dot.append("}")
         return "\n".join(dot)
 
-    def _create_codebuild_dot(self, buildspec) -> str:
+    def _create_codebuild_dot(self, buildspec: Any) -> str:
         """Create Graphviz DOT content for CodeBuild spec."""
         dot = ["digraph CodeBuildSpec {"]
         dot.append("    rankdir=TB;")
@@ -140,13 +141,13 @@ class PipelineVisualizer(BaseModel):
         dot.append("}")
         return "\n".join(dot)
 
-    def _format_triggers(self, triggers) -> str:
+    def _format_triggers(self, triggers: Any) -> str:
         """Format workflow triggers for display."""
         if isinstance(triggers, list):
             return "\\n".join([str(t) for t in triggers])
         return str(triggers)
 
-    def _format_jenkins_agent(self, agent) -> str:
+    def _format_jenkins_agent(self, agent: Any) -> str:
         """Format Jenkins agent for display."""
         if hasattr(agent, "docker") and agent.docker:
             return f"Docker: {agent.docker}"

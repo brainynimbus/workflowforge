@@ -77,7 +77,7 @@ class Job(BaseModel):
         self.permissions = permissions
         return self
 
-    def model_dump(self, **kwargs) -> dict[str, Any]:
+    def model_dump(self, **kwargs: Any) -> dict[str, Any]:
         """Serialize job to dictionary, converting steps correctly."""
         data = super().model_dump(**kwargs)
 

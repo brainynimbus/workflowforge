@@ -41,6 +41,7 @@ A robust and flexible library for creating GitHub Actions workflows, Jenkins pip
 - **Intuitive API**: Fluent and easy-to-use syntax
 - **Type Validation**: Built on Pydantic for automatic validation
 - **IDE Support**: Full autocompletion with type hints
+- **Type Safety**: Complete mypy compliance with strict type checking
 - **Multi-Platform**: GitHub Actions, Jenkins, AWS CodeBuild
 - **AI Documentation**: Optional AI-powered README generation with Ollama
 - **Pipeline Visualization**: Automatic diagram generation with Graphviz

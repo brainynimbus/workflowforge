@@ -1,4 +1,4 @@
-"""Definición de estrategias y matrices para jobs."""
+"""Strategy and matrix definitions for jobs."""
 
 from typing import Any
 
@@ -11,13 +11,13 @@ class Matrix(BaseModel):
     model_config = {"extra": "allow"}
 
     include: list[dict[str, Any]] | None = Field(
-        None, description="Configuraciones adicionales"
+        None, description="Additional configurations"
     )
     exclude: list[dict[str, Any]] | None = Field(
-        None, description="Configuraciones a excluir"
+        None, description="Configurations to exclude"
     )
 
-    def model_dump(self, **kwargs) -> dict[str, Any]:
+    def model_dump(self, **kwargs: Any) -> dict[str, Any]:
         """Serialize matrix including dynamic variables."""
         result = super().model_dump(**kwargs)
         return {k: v for k, v in result.items() if v is not None}
@@ -26,13 +26,13 @@ class Matrix(BaseModel):
 class Strategy(BaseModel):
     """Represents execution strategy for jobs."""
 
-    matrix: Matrix | None = Field(None, description="Matriz de configuraciones")
-    fail_fast: bool | None = Field(None, description="Fallar rápido si hay error")
-    max_parallel: int | None = Field(None, description="Máximo de jobs paralelos")
+    matrix: Matrix | None = Field(None, description="Configuration matrix")
+    fail_fast: bool | None = Field(None, description="Fail fast on error")
+    max_parallel: int | None = Field(None, description="Maximum parallel jobs")
 
-    def model_dump(self, **kwargs) -> dict[str, Any]:
+    def model_dump(self, **kwargs: Any) -> dict[str, Any]:
         """Serialize strategy."""
-        result = {}
+        result: dict[str, Any] = {}
 
         if self.matrix:
             result["matrix"] = self.matrix.model_dump(**kwargs)
@@ -44,9 +44,9 @@ class Strategy(BaseModel):
         return result
 
 
-# Factory functions para crear estrategias fácilmente
-def matrix(**variables) -> Matrix:
-    """Crea una Matrix de manera conveniente."""
+# Factory functions for convenient strategy creation
+def matrix(**variables: Any) -> Matrix:
+    """Create a Matrix conveniently."""
     return Matrix(**variables)
 
 
@@ -55,5 +55,5 @@ def strategy(
     fail_fast: bool | None = None,
     max_parallel: int | None = None,
 ) -> Strategy:
-    """Crea una Strategy de manera conveniente."""
+    """Create a Strategy conveniently."""
     return Strategy(matrix=matrix, fail_fast=fail_fast, max_parallel=max_parallel)

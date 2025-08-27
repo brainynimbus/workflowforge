@@ -152,9 +152,11 @@ def release_template(
     )
 
     # Publish job
+    from .environment import environment
+
     publish_job = Job(
         runs_on="ubuntu-latest",
-        environment={"name": "pypi", "url": "https://pypi.org/p/<package-name>"},
+        environment=environment("pypi", "https://pypi.org/p/<package-name>"),
         permissions={"id-token": "write"},
     )
     publish_job.set_needs("build")

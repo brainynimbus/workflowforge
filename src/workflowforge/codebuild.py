@@ -159,14 +159,14 @@ class BuildSpec(BaseModel):
 
     def to_yaml(self) -> str:
         """Convert to BuildSpec YAML format."""
-        data = {"version": self.version}
+        data: dict[str, Any] = {"version": self.version}
 
         if self.run_as:
             data["run-as"] = self.run_as
 
         # Environment
         if self.env:
-            env_data = {}
+            env_data: dict[str, Any] = {}
             if self.env.shell:
                 env_data["shell"] = self.env.shell
             if self.env.variables:
@@ -185,7 +185,7 @@ class BuildSpec(BaseModel):
                 data["env"] = env_data
 
         # Phases
-        phases = {}
+        phases: dict[str, Any] = {}
         for phase_name, phase in [
             ("install", self.install),
             ("pre_build", self.pre_build),
@@ -193,7 +193,7 @@ class BuildSpec(BaseModel):
             ("post_build", self.post_build),
         ]:
             if phase:
-                phase_data = {}
+                phase_data: dict[str, Any] = {}
                 if phase.run_as:
                     phase_data["run-as"] = phase.run_as
                 if phase.on_failure:
@@ -212,7 +212,7 @@ class BuildSpec(BaseModel):
 
         # Artifacts
         if self.artifacts:
-            artifacts_data = {"files": self.artifacts.files}
+            artifacts_data: dict[str, Any] = {"files": self.artifacts.files}
             if self.artifacts.name:
                 artifacts_data["name"] = self.artifacts.name
             if self.artifacts.discard_paths is not None:
@@ -233,7 +233,7 @@ class BuildSpec(BaseModel):
 
         # Cache
         if self.cache:
-            cache_data = {}
+            cache_data: dict[str, Any] = {}
             if self.cache.key:
                 cache_data["key"] = self.cache.key
             if self.cache.fallback_keys:

@@ -97,7 +97,9 @@ class JenkinsPipeline(BaseModel):
         self.libraries.append(library)
         return self
 
-    def add_parameter(self, param_type: str, name: str, **kwargs) -> "JenkinsPipeline":
+    def add_parameter(
+        self, param_type: str, name: str, **kwargs: Any
+    ) -> "JenkinsPipeline":
         """Add pipeline parameter."""
         if self.parameters is None:
             self.parameters = []
