@@ -39,7 +39,8 @@ class PipelineVisualizer(BaseModel):
         # Triggers
         triggers = self._format_triggers(workflow.on)
         dot.append(
-            f'    trigger [label="Triggers\\n{triggers}", shape=ellipse, color=green];'
+            f'    trigger [label="Triggers\\n{triggers}", '
+            "shape=ellipse, color=green];"
         )
 
         # Jobs
@@ -72,7 +73,7 @@ class PipelineVisualizer(BaseModel):
         # Agent
         agent_info = self._format_jenkins_agent(pipeline.agent)
         dot.append(
-            f'    agent [label="Agent\\n{agent_info}", shape=ellipse, color=blue];'
+            f'    agent [label="Agent\\n{agent_info}", ' "shape=ellipse, color=blue];"
         )
 
         # Stages
@@ -100,7 +101,8 @@ class PipelineVisualizer(BaseModel):
         if buildspec.env:
             vars_count = len(buildspec.env.variables) if buildspec.env.variables else 0
             dot.append(
-                f'    env [label="Environment\\nVariables: {vars_count}", shape=ellipse, color=green];'
+                f'    env [label="Environment\\nVariables: {vars_count}", '
+                "shape=ellipse, color=green];"
             )
             prev_node = "env"
         else:
@@ -117,7 +119,8 @@ class PipelineVisualizer(BaseModel):
         for phase_name, phase in phases:
             if phase:
                 commands_count = len(phase.commands) if phase.commands else 0
-                label = f"{phase_name.replace('_', ' ').title()}\\nCommands: {commands_count}"
+                phase_display = phase_name.replace("_", " ").title()
+                label = f"{phase_display}\\nCommands: {commands_count}"
                 dot.append(f'    {phase_name} [label="{label}"];')
 
                 if prev_node:
@@ -128,7 +131,8 @@ class PipelineVisualizer(BaseModel):
         if buildspec.artifacts:
             files_count = len(buildspec.artifacts.files)
             dot.append(
-                f'    artifacts [label="Artifacts\\nFiles: {files_count}", shape=ellipse, color=red];'
+                f'    artifacts [label="Artifacts\\nFiles: {files_count}", '
+                "shape=ellipse, color=red];"
             )
             if prev_node:
                 dot.append(f"    {prev_node} -> artifacts;")

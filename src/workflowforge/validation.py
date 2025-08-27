@@ -38,7 +38,11 @@ def validate_cron_expression(cron: str) -> bool:
 def validate_docker_image(image: str) -> bool:
     """Validate Docker image name format."""
     # Basic validation for Docker image names
-    pattern = r"^[a-z0-9]+(?:[._-][a-z0-9]+)*(?:/[a-z0-9]+(?:[._-][a-z0-9]+)*)*(?::[a-zA-Z0-9._-]+)?$"
+    pattern = (
+        r"^[a-z0-9]+(?:[._-][a-z0-9]+)*"
+        r"(?:/[a-z0-9]+(?:[._-][a-z0-9]+)*)*"
+        r"(?::[a-zA-Z0-9._-]+)?$"
+    )
     return bool(re.match(pattern, image))
 
 

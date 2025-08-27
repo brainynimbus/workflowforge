@@ -91,14 +91,16 @@ def validate_github_actions_schema(workflow_dict: dict[str, Any]) -> list[str]:
                     # Must have either 'uses' or 'run'
                     if "uses" not in step and "run" not in step:
                         errors.append(
-                            f"Step {i} in job '{job_name}' must have either 'uses' or 'run'"
+                            f"Step {i} in job '{job_name}' must have "
+                            "either 'uses' or 'run'"
                         )
 
                     # Validate step fields
                     for field in step.keys():
                         if field not in GITHUB_ACTIONS_SCHEMA["valid_step_fields"]:
                             errors.append(
-                                f"Invalid step field in job '{job_name}', step {i}: {field}"
+                                f"Invalid step field in job '{job_name}', "
+                                f"step {i}: {field}"
                             )
 
     return errors

@@ -14,14 +14,17 @@ class GitCheckout(BaseModel):
 
     def to_step(self) -> str:
         """Convert to Jenkins step."""
-        step = f"checkout scm: [$class: 'GitSCM', "
+        step = "checkout scm: [$class: 'GitSCM', "
         step += f"branches: [[name: '{self.branch}']], "
         step += f"userRemoteConfigs: [[url: '{self.url}'"
         if self.credentials_id:
             step += f", credentialsId: '{self.credentials_id}'"
         step += "]]"
         if self.shallow:
-            step += f", extensions: [[$class: 'CloneOption', shallow: {str(self.shallow).lower()}"
+            step += (
+                f", extensions: [[$class: 'CloneOption', "
+                f"shallow: {str(self.shallow).lower()}"
+            )
             if self.depth:
                 step += f", depth: {self.depth}"
             step += "]]"
