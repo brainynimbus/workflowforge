@@ -1,13 +1,32 @@
 # WorkflowForge 🔨
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/release/python-3110/)
-[![Python 3.12](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/downloads/release/python-3120/)
-[![Python 3.13](https://img.shields.io/badge/python-3.13-blue.svg)](https://www.python.org/downloads/release/python-3130/)
-[![PyPI version](https://badge.fury.io/py/workflowforge.svg)](https://badge.fury.io/py/workflowforge)
-<!-- [![Downloads](https://pepy.tech/badge/workflowforge)](https://pepy.tech/project/workflowforge) -->
-[![Test PyPI](https://img.shields.io/badge/Test%20PyPI-published-green)](https://test.pypi.org/project/workflowforge/)
-[![Tests](https://github.com/brainynimbus/workflowforge/workflows/Publish%20WorkflowForge%20to%20PyPI/badge.svg)](https://github.com/brainynimbus/workflowforge/actions)
+## 📊 Project Status
+
+[![License: MIT][license-badge]][license-url]
+[![PyPI version][pypi-badge]][pypi-url]
+[![Test PyPI][testpypi-badge]][testpypi-url]
+[![Python 3.11][python311-badge]][python311-url]
+[![Python 3.12][python312-badge]][python312-url]
+[![Python 3.13][python313-badge]][python313-url]
+[![Tests][tests-badge]][tests-url]
+[![pre-commit.ci status][precommit-badge]][precommit-url]
+
+[license-badge]: https://img.shields.io/badge/License-MIT-yellow.svg
+[license-url]: https://opensource.org/licenses/MIT
+[pypi-badge]: https://badge.fury.io/py/workflowforge.svg
+[pypi-url]: https://badge.fury.io/py/workflowforge
+[testpypi-badge]: https://img.shields.io/badge/Test%20PyPI-published-green
+[testpypi-url]: https://test.pypi.org/project/workflowforge/
+[python311-badge]: https://img.shields.io/badge/python-3.11-blue.svg
+[python311-url]: https://www.python.org/downloads/release/python-3110/
+[python312-badge]: https://img.shields.io/badge/python-3.12-blue.svg
+[python312-url]: https://www.python.org/downloads/release/python-3120/
+[python313-badge]: https://img.shields.io/badge/python-3.13-blue.svg
+[python313-url]: https://www.python.org/downloads/release/python-3130/
+[tests-badge]: https://github.com/brainynimbus/workflowforge/workflows/Publish%20WorkflowForge%20to%20PyPI/badge.svg
+[tests-url]: https://github.com/brainynimbus/workflowforge/actions
+[precommit-badge]: https://results.pre-commit.ci/badge/github/brainynimbus/workflowforge/main.svg
+[precommit-url]: https://results.pre-commit.ci/latest/github/brainynimbus/workflowforge/main
 
 A robust and flexible library for creating GitHub Actions workflows, Jenkins pipelines, and AWS CodeBuild BuildSpecs programmatically in Python.
 
