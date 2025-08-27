@@ -1,12 +1,8 @@
 """Tests for validation utilities."""
 
-import pytest
-import yaml
-
 from workflowforge import (
     validate_job_name,
     validate_secret_name,
-    validate_step_name,
     validate_workflow_yaml,
 )
 

@@ -1,7 +1,5 @@
 """Jenkins plugins and VCS support for WorkflowForge."""
 
-from typing import Any, Dict, List, Optional
-
 from pydantic import BaseModel, Field
 
 

@@ -1,11 +1,8 @@
 """GitHub Actions schema validation."""
 
-import json
-from typing import Any, Dict, List
+from typing import Any
 
 import yaml
-
-from .validation import ValidationError
 
 # Simplified GitHub Actions schema validation
 GITHUB_ACTIONS_SCHEMA = {

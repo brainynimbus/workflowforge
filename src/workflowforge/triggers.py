@@ -1,7 +1,7 @@
 """Definición de triggers para workflows de GitHub Actions."""
 
 from abc import ABC, abstractmethod
-from typing import Any, Dict, List, Optional, Union
+from typing import Any
 
 from pydantic import BaseModel, Field
 
@@ -12,7 +12,6 @@ class Trigger(BaseModel, ABC):
     @abstractmethod
     def to_dict(self) -> str | dict[str, Any]:
         """Convierte el trigger a formato para YAML."""
-        pass
 
 
 class PushTrigger(Trigger):

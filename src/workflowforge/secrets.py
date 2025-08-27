@@ -1,7 +1,5 @@
 """Secrets and variables support for all platforms."""
 
-from typing import Any, Dict
-
 from pydantic import BaseModel, Field
 
 

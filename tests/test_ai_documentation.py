@@ -2,8 +2,6 @@
 
 from unittest.mock import Mock, patch
 
-import pytest
-
 from workflowforge.ai_documentation import (
     OllamaClient,
     _template_generate_readme,

@@ -1,6 +1,5 @@
 """Tests for GitHub Actions workflow generation."""
 
-import pytest
 import yaml
 
 from workflowforge import (
@@ -10,7 +9,6 @@ from workflowforge import (
     matrix,
     on_pull_request,
     on_push,
-    on_release,
     run,
     strategy,
 )

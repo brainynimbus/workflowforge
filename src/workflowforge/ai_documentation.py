@@ -1,8 +1,5 @@
 """AI-powered documentation generation for WorkflowForge."""
 
-import json
-from typing import Any, Dict, Optional
-
 import requests
 from pydantic import BaseModel, Field
 
@@ -21,7 +18,7 @@ class OllamaClient(BaseModel):
         try:
             response = requests.get(f"{self.base_url}/api/tags", timeout=5)
             return response.status_code == 200
-        except:
+        except Exception:
             return False
 
     def generate(self, prompt: str) -> str | None:
@@ -39,7 +36,7 @@ class OllamaClient(BaseModel):
             if response.status_code == 200:
                 return response.json().get("response", "").strip()
             return None
-        except:
+        except Exception:
             return None
 
 
@@ -70,7 +67,7 @@ def _ai_generate_readme(workflow_content: str, platform: str) -> str:
         return _template_generate_readme(workflow_content, platform)
 
     prompt = f"""
-Analyze this {platform.upper()} CI/CD workflow and generate a comprehensive README.md documentation.
+Analyze this {platform.upper()} CI/CD workflow and generate a comprehensive README.md.
 
 Workflow content:
 ```
@@ -86,13 +83,16 @@ Please provide:
 6. Expected outputs/artifacts
 
 Format as proper markdown with clear sections and code blocks where appropriate.
-Keep it concise but informative for developers who need to understand and maintain this workflow.
+Keep it concise but informative for developers.
 """
 
     ai_response = client.generate(prompt)
 
     if ai_response:
-        return f"# Workflow Documentation\n\n{ai_response}\n\n---\n*Documentation generated with WorkflowForge AI*"
+        return (
+            f"# Workflow Documentation\n\n{ai_response}\n\n---\n"
+            "*Documentation generated with WorkflowForge AI*"
+        )
     else:
         return _template_generate_readme(workflow_content, platform)
 

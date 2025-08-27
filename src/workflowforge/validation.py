@@ -1,7 +1,7 @@
 """Validation utilities for WorkflowForge."""
 
 import re
-from typing import Any, Dict, List
+from typing import Any
 
 
 def validate_job_name(name: str) -> bool:
@@ -44,8 +44,6 @@ def validate_docker_image(image: str) -> bool:
 
 class ValidationError(Exception):
     """Raised when validation fails."""
-
-    pass
 
 
 def validate_workflow_structure(workflow_dict: dict[str, Any]) -> list[str]:

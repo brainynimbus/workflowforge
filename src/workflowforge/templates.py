@@ -1,7 +1,5 @@
 """Predefined templates for common workflows."""
 
-from typing import List, Optional
-
 from .job import Job
 from .secrets import secret
 from .step import action, run

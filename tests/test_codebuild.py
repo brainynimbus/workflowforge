@@ -1,6 +1,5 @@
 """Tests for AWS CodeBuild BuildSpec generation."""
 
-import pytest
 import yaml
 
 from workflowforge.codebuild import BuildEnvironment, artifacts, buildspec, phase

@@ -1,6 +1,6 @@
 """Definición de Jobs para workflows de GitHub Actions."""
 
-from typing import Any, Dict, List, Optional, Union
+from typing import Any
 
 from pydantic import BaseModel, Field
 

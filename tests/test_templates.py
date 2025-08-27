@@ -1,6 +1,5 @@
 """Tests for workflow templates."""
 
-import pytest
 import yaml
 
 from workflowforge import docker_build_template, node_ci_template, python_ci_template

@@ -1,7 +1,5 @@
 """Tests for Jenkins pipeline generation."""
 
-import pytest
-
 from workflowforge import agent_docker, pipeline, stage
 
 

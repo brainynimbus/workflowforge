@@ -1,7 +1,5 @@
 """Tests for secrets and variables."""
 
-import pytest
-
 from workflowforge import github_context, secret, variable
 
 
