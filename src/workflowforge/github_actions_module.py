@@ -32,7 +32,6 @@ workflow_dispatch_trigger = WorkflowDispatchTrigger
 release_trigger = ReleaseTrigger
 
 __all__ = [
-    # Classes (PascalCase for backwards compatibility)
     "Workflow",
     "Job",
     "Step",

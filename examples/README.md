@@ -4,13 +4,9 @@ This directory contains examples demonstrating the new modular import structure 
 
 ## New Import Style
 
-Instead of importing everything from the main module:
+Use the modular imports for a clear, type-safe API:
 
 ```python
-# Old style (still works)
-from workflowforge import Workflow, Job, action, run, on_push
-
-# New modular style (recommended)
 from workflowforge import github_actions
 
 workflow = github_actions.workflow(name="CI")
@@ -54,5 +50,4 @@ python examples/run_all_examples.py
 ✅ **Platform separation** - Clear namespace for each platform
 ✅ **Snake case naming** - Follows Python conventions
 ✅ **IDE autocompletion** - Better IntelliSense support
-✅ **Backwards compatibility** - Old imports still work
 ✅ **Shorter aliases** - `gh = github_actions` for convenience

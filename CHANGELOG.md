@@ -5,6 +5,13 @@ All notable changes to WorkflowForge will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+
+## [1.0b6] - 2025-08-27
+
+### Changed
+- Removed legacy references in docs and comments
+- Cleaned egg-info artifacts from repo
+- Ensured examples generate YAML/Jenkinsfile without lingering images
 ## [1.0b5] - 2024-12-19
 
 ### Added
@@ -61,7 +68,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - **BREAKING**: Migrated from PyYAML to ruamel.yaml for superior YAML generation
-- **BREAKING**: Removed legacy import compatibility - use platform-specific modules only
+- **BREAKING**: Removed top-level import compatibility – use platform-specific modules only
 - Translated all Spanish docstrings and comments to English for professional codebase
 - Improved YAML formatting with precise indentation (mapping=2, sequence=4, offset=2)
 - Enhanced code quality with flake8, black, and isort integration
@@ -75,7 +82,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Pre-commit hooks now pass successfully on all files
 
 ### Removed
-- Legacy backwards compatibility imports from __init__.py
+- Top-level backwards compatibility imports from __init__.py
 - Spanish language docstrings and comments
 - PyYAML dependency in favor of ruamel.yaml
 - npm-groovy-lint from pre-commit (simplified validation)
