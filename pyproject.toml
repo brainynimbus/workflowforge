@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "workflowforge"
-version = "1.0b6"
+version = "1.0b7"
 description = "A robust and flexible library for creating GitHub Actions workflows, Jenkins pipelines, and AWS CodeBuild BuildSpecs programmatically in Python"
 authors = [{name = "Brainy Nimbus, LLC", email = "info@brainynimbus.io"}]
 license = {text = "MIT"}
