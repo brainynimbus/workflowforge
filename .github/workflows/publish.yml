@@ -96,6 +96,9 @@ jobs:
         name: Publish to TestPyPI
         with:
           repository-url: https://test.pypi.org/legacy/
+          skip-existing: 'true'
+          verify-metadata: 'true'
+          print-hash: 'true'
     needs: build
     environment:
       name: testpypi
@@ -113,6 +116,10 @@ jobs:
           path: dist/
       - uses: pypa/gh-action-pypi-publish@release/v1
         name: Publish to PyPI
+        with:
+          skip-existing: 'true'
+          verify-metadata: 'true'
+          print-hash: 'true'
     needs: build
     environment:
       name: pypi
