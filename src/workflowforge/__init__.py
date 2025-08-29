@@ -6,6 +6,7 @@ and AWS CodeBuild BuildSpecs programmatically with type validation and autocompl
 """
 
 # Platform-specific modules
+from . import azure_devops as azure_devops
 from . import codebuild as aws_codebuild
 from . import github_actions_module as github_actions
 from . import jenkins as jenkins_platform
@@ -15,4 +16,5 @@ __all__ = [
     "github_actions",
     "jenkins_platform",
     "aws_codebuild",
+    "azure_devops",
 ]

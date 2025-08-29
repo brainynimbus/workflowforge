@@ -1,0 +1,37 @@
+# Do not modify - Generated with WorkflowForge
+name: Python CI
+trigger:
+  - main
+pr:
+  - main
+jobs:
+  - job: Test
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+      - task: UsePythonVersion@0
+        inputs:
+          versionSpec: $(python.version)
+        displayName: Use Python
+      - script: python -m pip install --upgrade pip
+        displayName: Upgrade pip
+      - script: pip install -e .[dev]
+        displayName: Install deps
+      - script: black --check src/ tests/
+        displayName: Black
+      - script: isort --check-only src/ tests/
+        displayName: Isort
+      - script: flake8 src/ tests/ examples/
+        displayName: Flake8
+      - script: mypy --install-types --non-interactive src/
+        displayName: Mypy
+      - script: pytest -q
+        displayName: Pytest
+    strategy:
+      matrix:
+        Py311:
+          python.version: '3.11'
+        Py312:
+          python.version: '3.12'
+        Py313:
+          python.version: '3.13'
