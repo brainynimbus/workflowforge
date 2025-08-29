@@ -28,8 +28,8 @@ def python_ci_template(
     test_job.add_step(
         action(
             "actions/setup-python@v5",
-            name="Set up Python ${{ matrix.python-version }}",
-            with_={"python-version": "${{ matrix.python-version }}"},
+            name="Set up Python ${{ matrix.python_version }}",
+            with_={"python-version": "${{ matrix.python_version }}"},
         )
     )
     test_job.add_step(run("pip install -e .[dev]", name="Install dependencies"))
@@ -96,9 +96,9 @@ def node_ci_template(
     test_job.add_step(
         action(
             "actions/setup-node@v4",
-            name="Setup Node.js ${{ matrix.node-version }}",
+            name="Setup Node.js ${{ matrix.node_version }}",
             with_={
-                "node-version": "${{ matrix.node-version }}",
+                "node-version": "${{ matrix.node_version }}",
                 "cache": package_manager,
             },
         )

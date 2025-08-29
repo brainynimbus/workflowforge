@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
+## [1.0.0] - 2025-08-29
+
+### Changed
+- Promote project to stable release (1.0.0)
+- Update classifiers to Production/Stable
+
+### Fixed
+- Correct GitHub Actions matrix variable references:
+  - Use `matrix.python_version` instead of `matrix.python-version`
+  - Use `matrix.node_version` instead of `matrix.node-version`
+- Align examples and CI workflow with corrected matrix variable names
+
 ## [1.0b7] - 2025-08-27
 
 ### Changed

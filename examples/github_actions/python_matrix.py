@@ -32,7 +32,7 @@ def main():
     job.add_step(
         github_actions.action(
             "actions/setup-python@v5",
-            with_={"python-version": "${{ matrix.python-version }}"},
+            with_={"python-version": "${{ matrix.python_version }}"},
         )
     )
     job.add_step(github_actions.run("pip install pytest"))
