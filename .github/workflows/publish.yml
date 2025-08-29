@@ -10,6 +10,16 @@ on:
   release:
     types:
       - published
+  workflow_dispatch:
+    inputs:
+      target:
+        description: Publish target (testpypi|pypi)
+        required: true
+        default: testpypi
+        type: choice
+        options:
+          - testpypi
+          - pypi
 jobs:
   test:
     steps:
@@ -70,8 +80,8 @@ jobs:
       - run: "echo \"Verifying tag matches pyproject version for release runs...\"\nPYPROJECT_VERSION=$(python - <<'PY'\n\
           import tomllib\nwith open('pyproject.toml', 'rb') as f:\n    data = tomllib.load(f)\nprint(data['project']['version'])\n\
           PY\n)\nTAG_NAME=${GITHUB_REF_NAME#v}\necho \"pyproject version: ${PYPROJECT_VERSION}\"\necho \"tag version     :
-          ${TAG_NAME}\"\nif [ \"${{ github.event_name }}\" = \"release\" ] && [ \"$PYPROJECT_VERSION\" != \"$TAG_NAME\" ];
-          then\n  echo \"ERROR: Version mismatch (pyproject=$PYPROJECT_VERSION tag=$TAG_NAME). Aborting.\" >&2\n  exit 1\n\
+          ${TAG_NAME}\"\nif [ \"${{ github.event_name }}\" = \"release\" ] &&  [ \"$PYPROJECT_VERSION\" != \"$TAG_NAME\" ];
+          then\n  echo \"ERROR: Version mismatch  (pyproject=$PYPROJECT_VERSION tag=$TAG_NAME). Aborting.\" >&2\n  exit 1\n\
           fi\n"
         name: Verify tag and project version match
       - run: twine check dist/*
@@ -105,7 +115,8 @@ jobs:
       url: https://test.pypi.org/p/workflowforge
     permissions:
       id-token: write
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    if: (github.ref == 'refs/heads/main' && github.event_name == 'push') || (github.event_name == 'workflow_dispatch' &&
+      github.event.inputs.target == 'testpypi')
     runs-on: ubuntu-latest
   publish-pypi:
     steps:
@@ -126,5 +137,6 @@ jobs:
       url: https://pypi.org/p/workflowforge
     permissions:
       id-token: write
-    if: github.event_name == 'release'
+    if: github.event_name == 'release' || (github.event_name == 'workflow_dispatch' && github.event.inputs.target ==
+      'pypi')
     runs-on: ubuntu-latest
