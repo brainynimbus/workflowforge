@@ -21,11 +21,12 @@ A robust and flexible library for creating GitHub Actions workflows, Azure DevOp
 - **IDE Support**: Full autocompletion with type hints
 - **Type Safety**: Complete mypy compliance with strict type checking
 - **Multi-Platform**: GitHub Actions, Azure DevOps, Jenkins, AWS CodeBuild
-- **AI Documentation**: Optional AI-powered README generation with Ollama
+- **Optional AI Documentation**: AI-powered README generation with Ollama
 - **Pipeline Visualization**: Automatic diagram generation with Graphviz
 - **Secrets Support**: Secure credential handling across all platforms
 - **Templates**: Pre-built workflows for common use cases
 - **Validation**: Schema validation and best practices checking
+- **Optional Security Scan**: On-demand Checkov scan for generated workflows (GitHub Actions and Azure Pipelines)
 
 ## 🚀 Installation
 
@@ -113,7 +114,7 @@ workflow.generate_diagram("pdf")  # PDF document
 
 ## 📖 Basic Usage
 
-### Modular Import Structure
+### Modular Import Structure (GitHub Actions)
 
 ```python
 from workflowforge import github_actions
@@ -186,6 +187,37 @@ spec.save("buildspec.yml", generate_readme=True, use_ai=True, generate_diagram=T
 # Creates: buildspec.yml + buildspec_README.md + codebuild_spec.png
 ```
 
+### Azure DevOps Usage
+
+Generate a simple “hello” pipeline:
+
+```python
+from workflowforge import azure_devops as ado
+
+pipeline = ado.hello_world_template_azure(
+    name="Hello ADO",
+    message="Hello Azure DevOps from WorkflowForge!",
+)
+pipeline.save("azure-pipelines.yml")
+```
+
+Or generate a Python matrix CI with caching across Ubuntu/Windows/macOS:
+
+```python
+from workflowforge import azure_devops as ado
+
+pipeline = ado.python_ci_template_azure(
+    python_versions=["3.11", "3.12", "3.13"],
+    os_list=["ubuntu-latest", "windows-latest", "macOS-latest"],
+    use_cache=True,
+)
+pipeline.save("azure-pipelines.yml")
+```
+
+- `buildspec()`, `phase()`, `environment()`, `artifacts()`
+- `codebuild_secret()`, `codebuild_parameter()`, `codebuild_env()`
+- Runtime versions, caching, reports
+
 ### AI Documentation Examples
 
 ```python
@@ -226,12 +258,13 @@ WorkflowForge supports **platform-specific imports** with **snake_case naming** 
 
 ```python
 # Import specific platforms
-from workflowforge import github_actions, jenkins_platform, aws_codebuild
+from workflowforge import github_actions, jenkins_platform, aws_codebuild, azure_devops
 
 # Or use short aliases
 from workflowforge import github_actions as gh
 from workflowforge import jenkins_platform as jenkins
 from workflowforge import aws_codebuild as cb
+from workflowforge import azure_devops as ado
 ```
 
 ### Benefits
@@ -312,37 +345,6 @@ workflow.add_job("deploy", deploy_job)
 - `pipeline()`, `job()`, `strategy(matrix=...)`, `task()`, `script()`
 - Python CI template with multi-OS matrix and pip caching
 - Hello world template
-
-### Azure DevOps Usage
-
-Generate a simple “hello” pipeline:
-
-```python
-from workflowforge import azure_devops as ado
-
-pipeline = ado.hello_world_template_azure(
-    name="Hello ADO",
-    message="Hello Azure DevOps from WorkflowForge!",
-)
-pipeline.save("azure-pipelines.yml")
-```
-
-Or generate a Python matrix CI with caching across Ubuntu/Windows/macOS:
-
-```python
-from workflowforge import azure_devops as ado
-
-pipeline = ado.python_ci_template_azure(
-    python_versions=["3.11", "3.12", "3.13"],
-    os_list=["ubuntu-latest", "windows-latest", "macOS-latest"],
-    use_cache=True,
-)
-pipeline.save("azure-pipelines.yml")
-```
-
-- `buildspec()`, `phase()`, `environment()`, `artifacts()`
-- `codebuild_secret()`, `codebuild_parameter()`, `codebuild_env()`
-- Runtime versions, caching, reports
 
 ### AI Documentation
 
