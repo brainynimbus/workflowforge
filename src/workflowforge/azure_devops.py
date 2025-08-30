@@ -184,22 +184,33 @@ class ADOPipeline(BaseModel):
             f.write(self.to_yaml())
         if scan_with_checkov:
             try:
+                import os
                 import shutil
                 import subprocess  # nosec B404
+                from pathlib import Path
 
-                if shutil.which("checkov") is None:
+                checkov_path = shutil.which("checkov")
+                if checkov_path is None:
                     print("⚠️ Checkov not found; skipping scan.")
                     return
-                subprocess.run(  # nosec B603,B607
-                    [
-                        "checkov",
-                        "--framework",
-                        "azure_pipelines",
-                        "--file",
-                        filepath,
-                    ],
-                    check=False,
-                )
+                target = Path(filepath).resolve()
+                cwd = Path(os.getcwd()).resolve()
+                try:
+                    target.relative_to(cwd)
+                except ValueError:
+                    print("⚠️ Skipping Checkov: target path is outside workspace.")
+                    return
+                if not target.is_file():
+                    print("⚠️ Skipping Checkov: target file does not exist.")
+                    return
+                cmd = [
+                    checkov_path,
+                    "--framework",
+                    "azure_pipelines",
+                    "--file",
+                    str(target),
+                ]
+                subprocess.run(cmd, check=False)  # nosec B603
             except Exception:
                 print("⚠️ Checkov scan encountered an error; continuing.")
 

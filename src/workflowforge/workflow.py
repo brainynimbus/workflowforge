@@ -142,23 +142,36 @@ class Workflow(BaseModel):
         if scan_with_checkov:
             # Optional security scan of generated GitHub Actions workflow using Checkov
             try:
+                import os
                 import shutil
                 import subprocess  # nosec B404
+                from pathlib import Path
 
-                if shutil.which("checkov") is None:
+                checkov_path = shutil.which("checkov")
+                if checkov_path is None:
                     print("⚠️ Checkov not found; skipping scan.")
                     return
-                # Use GitHub Actions framework
-                subprocess.run(  # nosec B603,B607
-                    [
-                        "checkov",
-                        "--framework",
-                        "github_actions",
-                        "--file",
-                        filepath,
-                    ],
-                    check=False,
-                )
+
+                target = Path(filepath).resolve()
+                cwd = Path(os.getcwd()).resolve()
+                # Basic path safety: only scan files within the current workspace
+                try:
+                    target.relative_to(cwd)
+                except ValueError:
+                    print("⚠️ Skipping Checkov: target path is outside workspace.")
+                    return
+                if not target.is_file():
+                    print("⚠️ Skipping Checkov: target file does not exist.")
+                    return
+
+                cmd = [
+                    checkov_path,
+                    "--framework",
+                    "github_actions",
+                    "--file",
+                    str(target),
+                ]
+                subprocess.run(cmd, check=False)  # nosec B603
             except Exception:
                 # Soft-fail: scanning is optional
                 print("⚠️ Checkov scan encountered an error; continuing.")
