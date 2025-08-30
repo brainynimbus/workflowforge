@@ -5,16 +5,14 @@
 [![License: MIT][license-badge]][license-url]
 [![PyPI version][pypi-badge]][pypi-url]
 [![Test PyPI][testpypi-badge]][testpypi-url]
-[![Python 3.11][python311-badge]][python311-url]
-[![Python 3.12][python312-badge]][python312-url]
-[![Python 3.13][python313-badge]][python313-url]
+[![Python Versions][python-versions-badge]][python-versions-url]
 [![Tests][tests-badge]][tests-url]
 [![pre-commit.ci status][precommit-badge]][precommit-url]
 [![Formatted with Black][black-badge]][black-url]
 [![Imports: isort][isort-badge]][isort-url]
 [![Maintained by Brainy Nimbus][maintained-badge]][maintained-url]
 
-A robust and flexible library for creating GitHub Actions workflows, Jenkins pipelines, and AWS CodeBuild BuildSpecs programmatically in Python.
+A robust and flexible library for creating GitHub Actions workflows, Azure DevOps pipelines, Jenkins pipelines, and AWS CodeBuild BuildSpecs programmatically in Python.
 
 ## ✨ Features
 
@@ -22,7 +20,7 @@ A robust and flexible library for creating GitHub Actions workflows, Jenkins pip
 - **Type Validation**: Built on Pydantic for automatic validation
 - **IDE Support**: Full autocompletion with type hints
 - **Type Safety**: Complete mypy compliance with strict type checking
-- **Multi-Platform**: GitHub Actions, Jenkins, AWS CodeBuild
+- **Multi-Platform**: GitHub Actions, Azure DevOps, Jenkins, AWS CodeBuild
 - **AI Documentation**: Optional AI-powered README generation with Ollama
 - **Pipeline Visualization**: Automatic diagram generation with Graphviz
 - **Secrets Support**: Secure credential handling across all platforms
@@ -45,6 +43,8 @@ Check out the `examples/` directory for complete working examples:
 python examples/github_actions/basic_ci.py
 python examples/jenkins/maven_build.py
 python examples/codebuild/node_app.py
+python examples/azure_devops/hello_world.py
+python examples/azure_devops/python_ci.py
 ```
 
 This will generate actual pipeline files and diagrams using the new import structure.
@@ -76,7 +76,7 @@ print(readme)
 - ✅ **Works offline** - local AI processing
 - ✅ **Optional** - gracefully falls back to templates if Ollama not available
 - ✅ **Comprehensive** - explains purpose, triggers, jobs, secrets, setup instructions
-- ✅ **All platforms** - GitHub Actions, Jenkins, AWS CodeBuild
+- ✅ **All platforms** - GitHub Actions, Azure DevOps, Jenkins, AWS CodeBuild
 
 ## 📊 Pipeline Visualization (Automatic)
 
@@ -108,12 +108,12 @@ workflow.generate_diagram("pdf")  # PDF document
 - ✅ **Automatic generation** - every pipeline gets a visual diagram
 - ✅ **Multiple formats** - PNG, SVG, PDF, DOT
 - ✅ **Smart fallback** - DOT files if Graphviz not installed
-- ✅ **Platform-specific styling** - GitHub (blue), Jenkins (orange), CodeBuild (purple)
+- ✅ **Platform-specific styling** - Azure DevOps (blue), GitHub (purple), Jenkins (orange), CodeBuild (toasted AWS yellow)
 - ✅ **Comprehensive view** - shows triggers, jobs, dependencies, step counts
 
 ## 📖 Basic Usage
 
-### New Modular Import Style (Recommended)
+### Modular Import Structure
 
 ```python
 from workflowforge import github_actions
@@ -218,9 +218,9 @@ else:
     print("Using template documentation (Ollama not running)")
 ```
 
-## 🆕 New Modular Import Structure
+## Modular Import Structure
 
-WorkflowForge now supports **platform-specific imports** with **snake_case naming** following Python conventions:
+WorkflowForge supports **platform-specific imports** with **snake_case naming** following Python conventions:
 
 ### Platform Modules
 
@@ -307,6 +307,39 @@ workflow.add_job("deploy", deploy_job)
 
 **AWS CodeBuild:**
 
+**Azure DevOps:**
+
+- `pipeline()`, `job()`, `strategy(matrix=...)`, `task()`, `script()`
+- Python CI template with multi-OS matrix and pip caching
+- Hello world template
+
+### Azure DevOps Usage
+
+Generate a simple “hello” pipeline:
+
+```python
+from workflowforge import azure_devops as ado
+
+pipeline = ado.hello_world_template_azure(
+    name="Hello ADO",
+    message="Hello Azure DevOps from WorkflowForge!",
+)
+pipeline.save("azure-pipelines.yml")
+```
+
+Or generate a Python matrix CI with caching across Ubuntu/Windows/macOS:
+
+```python
+from workflowforge import azure_devops as ado
+
+pipeline = ado.python_ci_template_azure(
+    python_versions=["3.11", "3.12", "3.13"],
+    os_list=["ubuntu-latest", "windows-latest", "macOS-latest"],
+    use_cache=True,
+)
+pipeline.save("azure-pipelines.yml")
+```
+
 - `buildspec()`, `phase()`, `environment()`, `artifacts()`
 - `codebuild_secret()`, `codebuild_parameter()`, `codebuild_env()`
 - Runtime versions, caching, reports
@@ -331,9 +364,9 @@ workflow.add_job("deploy", deploy_job)
 Contributions are welcome! Please:
 
 1. Fork the repository
-2. Create a feature branch
-3. Add tests
-4. Submit a pull request
+1. Create a feature branch
+1. Add tests
+1. Submit a pull request
 
 ## 👨‍💻 Author & Maintainer
 
@@ -368,25 +401,28 @@ MIT License - see [LICENSE](LICENSE) for details.
 - [CodeBuild Samples](https://docs.aws.amazon.com/codebuild/latest/userguide/samples.html)
 
 <!-- Badges section -->
-[license-badge]: https://img.shields.io/badge/License-MIT-yellow.svg
-[license-url]: https://opensource.org/licenses/MIT
-[pypi-badge]: https://badge.fury.io/py/workflowforge.svg
-[pypi-url]: https://badge.fury.io/py/workflowforge
-[testpypi-badge]: https://img.shields.io/badge/Test%20PyPI-published-green
-[testpypi-url]: https://test.pypi.org/project/workflowforge/
-[python311-badge]: https://img.shields.io/badge/python-3.11-blue.svg
-[python311-url]: https://www.python.org/downloads/release/python-3110/
-[python312-badge]: https://img.shields.io/badge/python-3.12-blue.svg
-[python312-url]: https://www.python.org/downloads/release/python-3120/
-[python313-badge]: https://img.shields.io/badge/python-3.13-blue.svg
-[python313-url]: https://www.python.org/downloads/release/python-3130/
-[tests-badge]: https://github.com/brainynimbus/workflowforge/workflows/Publish%20WorkflowForge%20to%20PyPI/badge.svg
-[tests-url]: https://github.com/brainynimbus/workflowforge/actions
-[precommit-badge]: https://results.pre-commit.ci/badge/github/brainynimbus/workflowforge/main.svg
-[precommit-url]: https://results.pre-commit.ci/latest/github/brainynimbus/workflowforge/main
+
+- **Azure DevOps Pipelines:**
+
+- [YAML schema reference](https://learn.microsoft.com/en-us/azure/devops/pipelines/yaml-schema)
+
+- [Customize Python pipelines](https://learn.microsoft.com/en-us/azure/devops/pipelines/ecosystems/customize-python)
+
 [black-badge]: https://img.shields.io/badge/code%20style-black-000000.svg
 [black-url]: https://github.com/psf/black
 [isort-badge]: https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336
 [isort-url]: https://pycqa.github.io/isort/
+[license-badge]: https://img.shields.io/badge/License-MIT-yellow.svg
+[license-url]: https://opensource.org/licenses/MIT
 [maintained-badge]: https://img.shields.io/badge/maintained%20by-Brainy%20Nimbus-8A2BE2?style=flat
 [maintained-url]: https://brainynimbus.io/
+[precommit-badge]: https://results.pre-commit.ci/badge/github/brainynimbus/workflowforge/main.svg
+[precommit-url]: https://results.pre-commit.ci/latest/github/brainynimbus/workflowforge/main
+[pypi-badge]: https://badge.fury.io/py/workflowforge.svg
+[pypi-url]: https://badge.fury.io/py/workflowforge
+[python-versions-badge]: https://img.shields.io/badge/python-3.11%20%7C%203.12%20%7C%203.13-blue
+[python-versions-url]: https://www.python.org/
+[testpypi-badge]: https://img.shields.io/badge/Test%20PyPI-published-green
+[testpypi-url]: https://test.pypi.org/project/workflowforge/
+[tests-badge]: https://github.com/brainynimbus/workflowforge/workflows/Publish%20WorkflowForge%20to%20PyPI/badge.svg
+[tests-url]: https://github.com/brainynimbus/workflowforge/actions

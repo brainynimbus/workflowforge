@@ -175,9 +175,33 @@ class ADOPipeline(BaseModel):
         content = stream.getvalue()
         return f"# Do not modify - Generated with WorkflowForge\n{content}"
 
-    def save(self, filepath: str = "azure-pipelines.yml") -> None:
+    def save(
+        self,
+        filepath: str = "azure-pipelines.yml",
+        scan_with_checkov: bool = False,
+    ) -> None:
         with open(filepath, "w", encoding="utf-8") as f:
             f.write(self.to_yaml())
+        if scan_with_checkov:
+            try:
+                import shutil
+                import subprocess  # nosec B404
+
+                if shutil.which("checkov") is None:
+                    print("⚠️ Checkov not found; skipping scan.")
+                    return
+                subprocess.run(  # nosec B603,B607
+                    [
+                        "checkov",
+                        "--framework",
+                        "azure_pipelines",
+                        "--file",
+                        filepath,
+                    ],
+                    check=False,
+                )
+            except Exception:
+                print("⚠️ Checkov scan encountered an error; continuing.")
 
 
 def pipeline(

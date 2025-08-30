@@ -1,38 +1,43 @@
 repos:
   # Basic file checks
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.6.0
+    rev: v5.0.0
     hooks:
-      - id: trailing-whitespace
-      - id: end-of-file-fixer
       - id: check-yaml
-      - id: check-added-large-files
-      - id: check-merge-conflict
-      - id: check-toml
-      - id: debug-statements
-      - id: mixed-line-ending
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
 
-  # Python code formatting
-  - repo: https://github.com/psf/black
-    rev: 25.1.0
+  # Ruff (lints + fixes and formats)
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.12.0
     hooks:
-      - id: black
-        language_version: python3
+      - id: ruff-check
+        args: ["--fix"]
+      - id: ruff-format
 
-  # Import sorting
-  - repo: https://github.com/pycqa/isort
-    rev: 5.13.2
-    hooks:
-      - id: isort
-        args: ["--profile", "black"]
-
-  # Security scanning
+  # Security scanning (code)
   - repo: https://github.com/PyCQA/bandit
     rev: 1.8.6
     hooks:
       - id: bandit
-        args: ["-r", "src/"]
+        args: ["-s", "B603,B607,B404"]
         exclude: tests/
+
+  # Markdown formatting
+  - repo: https://github.com/executablebooks/mdformat
+    rev: 0.7.22
+    hooks:
+      - id: mdformat
+        additional_dependencies:
+          - mdformat-mkdocs==4.0.0
+          - mdformat-footnote==0.1.1
+
+  # Markdown linting (auto-fix)
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.45.0
+    hooks:
+      - id: markdownlint-fix
+        args: ["--disable", "MD013,MD024"]
 
   # Conventional commits validation
   - repo: https://github.com/compilerla/conventional-pre-commit
@@ -41,21 +46,7 @@ repos:
       - id: conventional-pre-commit
         stages: [commit-msg]
 
-  # Python syntax and style
-  - repo: https://github.com/pycqa/flake8
-    rev: 7.1.1
-    hooks:
-      - id: flake8
-        args: ["--max-line-length=88", "--extend-ignore=E203,W503"]
-
-  # Upgrade Python syntax
-  - repo: https://github.com/asottile/pyupgrade
-    rev: v3.19.0
-    hooks:
-      - id: pyupgrade
-        args: [--py311-plus]
-
-  # YAML linting
+  # YAML linting for generated examples
   - repo: https://github.com/adrienverge/yamllint
     rev: v1.35.1
     hooks:

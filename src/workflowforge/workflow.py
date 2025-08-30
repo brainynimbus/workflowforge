@@ -110,6 +110,7 @@ class Workflow(BaseModel):
         generate_readme: bool = False,
         use_ai: bool = True,
         generate_diagram: bool = True,
+        scan_with_checkov: bool = False,
     ) -> None:
         """Save workflow to YAML file.
 
@@ -137,6 +138,30 @@ class Workflow(BaseModel):
         if generate_diagram:
             diagram_path = self.generate_diagram()
             print(f"📊 Workflow diagram saved: {diagram_path}")
+
+        if scan_with_checkov:
+            # Optional security scan of generated GitHub Actions workflow using Checkov
+            try:
+                import shutil
+                import subprocess  # nosec B404
+
+                if shutil.which("checkov") is None:
+                    print("⚠️ Checkov not found; skipping scan.")
+                    return
+                # Use GitHub Actions framework
+                subprocess.run(  # nosec B603,B607
+                    [
+                        "checkov",
+                        "--framework",
+                        "github_actions",
+                        "--file",
+                        filepath,
+                    ],
+                    check=False,
+                )
+            except Exception:
+                # Soft-fail: scanning is optional
+                print("⚠️ Checkov scan encountered an error; continuing.")
 
     def _serialize_triggers(self) -> str | list[str] | dict[str, Any]:
         """Serialize triggers for YAML output."""
