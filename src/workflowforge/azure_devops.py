@@ -95,6 +95,9 @@ class ADOJob(BaseModel):
     name: str = Field(..., description="Job name identifier")
     vm_image: str = Field("ubuntu-latest", description="Microsoft-hosted image")
     strategy: ADOStrategy | None = Field(None, description="Job strategy")
+    variables: dict[str, Any] | None = Field(
+        default=None, description="Job-level variables"
+    )
     steps: list[ADOStep] = Field(default_factory=list, description="Job steps")
 
     def add_step(self, step: ADOStep) -> ADOJob:
@@ -107,6 +110,8 @@ class ADOJob(BaseModel):
             "pool": {"vmImage": self.vm_image},
             "steps": [s.to_dict() for s in self.steps],
         }
+        if self.variables:
+            data["variables"] = self.variables
         if self.strategy:
             strat = self.strategy.to_dict()
             if strat:
@@ -115,9 +120,12 @@ class ADOJob(BaseModel):
 
 
 def job(
-    name: str, vm_image: str = "ubuntu-latest", strategy: ADOStrategy | None = None
+    name: str,
+    vm_image: str = "ubuntu-latest",
+    strategy: ADOStrategy | None = None,
+    variables: dict[str, Any] | None = None,
 ) -> ADOJob:
-    return ADOJob(name=name, vm_image=vm_image, strategy=strategy)
+    return ADOJob(name=name, vm_image=vm_image, strategy=strategy, variables=variables)
 
 
 # ------------------------- Pipeline -------------------------
@@ -187,6 +195,8 @@ def pipeline(
 def python_ci_template_azure(
     python_versions: list[str] | None = None,
     branches: list[str] | None = None,
+    os_list: list[str] | None = None,
+    use_cache: bool = True,
 ) -> ADOPipeline:
     """Create a Python CI matrix pipeline for Azure Pipelines.
 
@@ -198,18 +208,25 @@ def python_ci_template_azure(
         python_versions = ["3.11", "3.12", "3.13"]
     if branches is None:
         branches = ["main"]
+    if os_list is None:
+        os_list = ["ubuntu-latest", "windows-latest", "macOS-latest"]
 
-    # Build matrix mapping: Name -> { python.version: 'X.Y' }
-    matrix_map: dict[str, dict[str, str]] = {
-        f"Py{v.replace('.', '')}": {"python.version": v} for v in python_versions
-    }
+    # Build matrix mapping: combine python + OS
+    matrix_map: dict[str, dict[str, str]] = {}
+    for v in python_versions:
+        for os_name in os_list:
+            key = f"Py{v.replace('.', '')}_{os_name.replace('-', '').replace('.', '')}"
+            matrix_map[key] = {"python.version": v, "vmImage": os_name}
 
     pl = pipeline(name="Python CI", trigger=branches, pr=branches)
 
     test_job = job(
         name="Test",
-        vm_image="ubuntu-latest",
+        vm_image="$(vmImage)",
         strategy=strategy(matrix=matrix_map),
+        variables=(
+            {"PIP_CACHE_DIR": "$(Pipeline.Workspace)/.pip"} if use_cache else None
+        ),
     )
     test_job.add_step(
         task(
@@ -218,6 +235,18 @@ def python_ci_template_azure(
             name="Use Python",
         )
     )
+    if use_cache:
+        test_job.add_step(
+            task(
+                "Cache@2",
+                inputs={
+                    "key": "pip | $(Agent.OS) | $(python.version) | pyproject.toml",
+                    "restoreKeys": "pip | $(Agent.OS) | $(python.version)",
+                    "path": "$(PIP_CACHE_DIR)",
+                },
+                name="Cache pip",
+            )
+        )
     test_job.add_step(script("python -m pip install --upgrade pip", name="Upgrade pip"))
     test_job.add_step(script("pip install -e .[dev]", name="Install deps"))
     test_job.add_step(script("black --check src/ tests/", name="Black"))
