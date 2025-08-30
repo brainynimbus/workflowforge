@@ -263,3 +263,27 @@ def python_ci_template_azure(
 
 # Public aliases to match library style
 azure_pipeline = pipeline
+
+
+def hello_world_template_azure(
+    name: str = "Hello ADO",
+    message: str = "Hello from WorkflowForge!",
+    vm_image: str = "ubuntu-latest",
+    branches: list[str] | None = None,
+) -> ADOPipeline:
+    """Create a minimal Azure Pipelines pipeline that prints a message.
+
+    Args:
+        name: Pipeline display name.
+        message: Text to echo during the job.
+        vm_image: Hosted image for the job.
+        branches: CI trigger branches (default: ['main']).
+    """
+    if branches is None:
+        branches = ["main"]
+
+    pl = pipeline(name=name, trigger=branches, pr=branches)
+    j = job(name="hello", vm_image=vm_image)
+    j.add_step(script(f"echo {message}", name="Say hello"))
+    pl.add_job(j)
+    return pl
