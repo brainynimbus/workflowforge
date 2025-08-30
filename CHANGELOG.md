@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.1.0] - 2025-08-29
+
+### Added
+- Azure DevOps YAML support (`workflowforge.azure_devops`): pipeline/job/steps/task modeling and YAML emitter
+- Python CI template for Azure Pipelines with multi-OS matrix (Ubuntu/Windows/macOS) and pip caching via Cache@2
+- Minimal Azure DevOps hello-world template and examples under `examples/azure_devops/`
+
+### Changed
+- Exported `azure_devops` from public API for `from workflowforge import azure_devops`
+- Consistent YAML indentation for Azure Pipelines emitter to improve readability
+
+### Security
+- CI/CD remains on GitHub Actions with tag/version guard and idempotent PyPI/TestPyPI publishing (`skip-existing`)
+
 All notable changes to WorkflowForge will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
