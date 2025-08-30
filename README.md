@@ -8,6 +8,7 @@
 [![Python Versions][python-versions-badge]][python-versions-url]
 [![Tests][tests-badge]][tests-url]
 [![pre-commit.ci status][precommit-badge]][precommit-url]
+[![Ruff][ruff-badge]][ruff-url]
 [![Formatted with Black][black-badge]][black-url]
 [![Imports: isort][isort-badge]][isort-url]
 [![Maintained by Brainy Nimbus][maintained-badge]][maintained-url]
@@ -25,7 +26,7 @@ A robust and flexible library for creating GitHub Actions workflows, Azure DevOp
 - **Secrets Support**: Secure credential handling across all platforms
 - **Templates**: Pre-built workflows for common use cases
 - **Validation**: Schema validation and best practices checking
-- **Optional Security Scan**: On-demand Checkov scan for generated workflows (GitHub Actions and Azure
+- **Optional Security Scan**: On-demand Checkov scan for generated workflows (GitHub Actions and Azure)
 - **Optional AI Documentation**: AI-powered README generation with OllamaPipelines)
 
 ## 🚀 Installation
@@ -434,6 +435,8 @@ MIT License - see [LICENSE](LICENSE) for details.
 [pypi-url]: https://badge.fury.io/py/workflowforge
 [python-versions-badge]: https://img.shields.io/badge/python-3.11%20%7C%203.12%20%7C%203.13-blue
 [python-versions-url]: https://www.python.org/
+[ruff-badge]: https://img.shields.io/badge/linting-ruff-46A3FF?logo=ruff&logoColor=white
+[ruff-url]: https://github.com/astral-sh/ruff
 [testpypi-badge]: https://img.shields.io/badge/Test%20PyPI-published-green
 [testpypi-url]: https://test.pypi.org/project/workflowforge/
 [tests-badge]: https://github.com/brainynimbus/workflowforge/workflows/Publish%20WorkflowForge%20to%20PyPI/badge.svg
