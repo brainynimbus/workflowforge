@@ -114,7 +114,7 @@ workflow.generate_diagram("pdf")  # PDF document
 
 ## 📖 Basic Usage
 
-### Modular Import Structure (GitHub Actions)
+### GitHub Actions Usage
 
 ```python
 from workflowforge import github_actions
@@ -214,9 +214,16 @@ pipeline = ado.python_ci_template_azure(
 pipeline.save("azure-pipelines.yml")
 ```
 
-- `buildspec()`, `phase()`, `environment()`, `artifacts()`
-- `codebuild_secret()`, `codebuild_parameter()`, `codebuild_env()`
-- Runtime versions, caching, reports
+Optionally, scan the emitted YAML with Checkov (if installed):
+
+```python
+from workflowforge import azure_devops as ado
+
+pipeline = ado.python_ci_template_azure()
+pipeline.save("azure-pipelines.yml", scan_with_checkov=True)
+```
+
+See also: `examples/azure_devops/python_ci_scan.py`.
 
 ### AI Documentation Examples
 
@@ -340,6 +347,10 @@ workflow.add_job("deploy", deploy_job)
 
 **AWS CodeBuild:**
 
+- `buildspec()`, `phase()`, `environment()`, `artifacts()`
+- `codebuild_secret()`, `codebuild_parameter()`, `codebuild_env()`
+- Runtime versions, caching, reports
+
 **Azure DevOps:**
 
 - `pipeline()`, `job()`, `strategy(matrix=...)`, `task()`, `script()`
@@ -351,13 +362,13 @@ workflow.add_job("deploy", deploy_job)
 - **Ollama Integration**: Local AI models (llama3.2, codellama, qwen2.5-coder)
 - **Automatic README**: Explains workflow purpose, triggers, jobs, setup
 - **Fallback Support**: Template-based documentation if AI unavailable
-- **All Platforms**: Works with GitHub Actions, Jenkins, CodeBuild
+- **All Platforms**: Works with GitHub Actions, Azure DevOps, Jenkins, CodeBuild
 
 ### Pipeline Visualization
 
 - **Graphviz Integration**: Native diagram generation using DOT language
 - **Multiple Formats**: PNG, SVG, PDF, DOT files
-- **Platform Styling**: Color-coded diagrams (GitHub: blue, Jenkins: orange, CodeBuild: purple)
+- **Platform Styling**: Color-coded diagrams (Azure DevOps: blue, GitHub: purple, Jenkins: orange, CodeBuild: toasted AWS yellow)
 - **Smart Fallback**: DOT files if Graphviz not installed, images if available
 - **Comprehensive View**: Shows triggers, jobs, dependencies, step counts, execution flow
 
@@ -402,12 +413,9 @@ MIT License - see [LICENSE](LICENSE) for details.
 - [BuildSpec Reference](https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html)
 - [CodeBuild Samples](https://docs.aws.amazon.com/codebuild/latest/userguide/samples.html)
 
-<!-- Badges section -->
-
-- **Azure DevOps Pipelines:**
+**Azure DevOps Pipelines:**
 
 - [YAML schema reference](https://learn.microsoft.com/en-us/azure/devops/pipelines/yaml-schema)
-
 - [Customize Python pipelines](https://learn.microsoft.com/en-us/azure/devops/pipelines/ecosystems/customize-python)
 
 [black-badge]: https://img.shields.io/badge/code%20style-black-000000.svg
