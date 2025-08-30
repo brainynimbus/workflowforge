@@ -9,8 +9,7 @@
 [![Tests][tests-badge]][tests-url]
 [![pre-commit.ci status][precommit-badge]][precommit-url]
 [![Ruff][ruff-badge]][ruff-url]
-[![Formatted with Black][black-badge]][black-url]
-[![Imports: isort][isort-badge]][isort-url]
+[![Security][security-badge]][security-url]
 [![Maintained by Brainy Nimbus][maintained-badge]][maintained-url]
 
 A robust and flexible library for creating GitHub Actions workflows, Azure DevOps pipelines, Jenkins pipelines, and AWS CodeBuild BuildSpecs programmatically in Python.
@@ -421,10 +420,6 @@ MIT License - see [LICENSE](LICENSE) for details.
 - [YAML schema reference](https://learn.microsoft.com/en-us/azure/devops/pipelines/yaml-schema)
 - [Customize Python pipelines](https://learn.microsoft.com/en-us/azure/devops/pipelines/ecosystems/customize-python)
 
-[black-badge]: https://img.shields.io/badge/code%20style-black-000000.svg
-[black-url]: https://github.com/psf/black
-[isort-badge]: https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336
-[isort-url]: https://pycqa.github.io/isort/
 [license-badge]: https://img.shields.io/badge/License-MIT-yellow.svg
 [license-url]: https://opensource.org/licenses/MIT
 [maintained-badge]: https://img.shields.io/badge/maintained%20by-Brainy%20Nimbus-8A2BE2?style=flat
@@ -437,6 +432,8 @@ MIT License - see [LICENSE](LICENSE) for details.
 [python-versions-url]: https://www.python.org/
 [ruff-badge]: https://img.shields.io/badge/linting-ruff-46A3FF?logo=ruff&logoColor=white
 [ruff-url]: https://github.com/astral-sh/ruff
+[security-badge]: https://img.shields.io/badge/security-bandit-brightgreen?style=flat
+[security-url]: https://bandit.readthedocs.io/
 [testpypi-badge]: https://img.shields.io/badge/Test%20PyPI-published-green
 [testpypi-url]: https://test.pypi.org/project/workflowforge/
 [tests-badge]: https://github.com/brainynimbus/workflowforge/workflows/Publish%20WorkflowForge%20to%20PyPI/badge.svg
