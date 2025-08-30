@@ -1,6 +1,6 @@
 # WorkflowForge Examples
 
-This directory contains examples demonstrating the new modular import structure of WorkflowForge.
+This directory contains examples demonstrating the modular import structure of WorkflowForge.
 
 ## New Import Style
 
@@ -39,15 +39,23 @@ python examples/jenkins/maven_build.py
 python examples/codebuild/node_app.py
 ```
 
-Run all examples at once:
+Run Azure DevOps examples:
 
 ```bash
-python examples/run_all_examples.py
+python examples/azure_devops/hello_world.py
+python examples/azure_devops/python_ci.py
+python examples/azure_devops/python_ci_scan.py
 ```
 
-## Benefits of New Structure
+## Benefits of Modular Structure
 
 ✅ **Platform separation** - Clear namespace for each platform
 ✅ **Snake case naming** - Follows Python conventions
-✅ **IDE autocompletion** - Better IntelliSense support
-✅ **Shorter aliases** - `gh = github_actions` for convenience
+
+### Azure DevOps
+
+- **hello_world.py** - Minimal ADO pipeline that echoes a message
+- **python_ci.py** - Python matrix CI across Ubuntu/Windows/macOS with pip cache
+- **python_ci_scan.py** - Same as above, plus optional Checkov scan of emitted YAML
+    ✅ **IDE autocompletion** - Better IntelliSense support
+    ✅ **Shorter aliases** - `gh = github_actions` for convenience
