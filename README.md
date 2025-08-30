@@ -388,5 +388,5 @@ MIT License - see [LICENSE](LICENSE) for details.
 [black-url]: https://github.com/psf/black
 [isort-badge]: https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336
 [isort-url]: https://pycqa.github.io/isort/
-[maintained-badge]: https://img.shields.io/badge/maintained%20by-Brainy%20Nimbus-0A66C2?style=flat
+[maintained-badge]: https://img.shields.io/badge/maintained%20by-Brainy%20Nimbus-8A2BE2?style=flat
 [maintained-url]: https://brainynimbus.io/
