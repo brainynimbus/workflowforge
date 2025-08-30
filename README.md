@@ -12,27 +12,7 @@
 [![pre-commit.ci status][precommit-badge]][precommit-url]
 [![Formatted with Black][black-badge]][black-url]
 [![Imports: isort][isort-badge]][isort-url]
-
-[license-badge]: https://img.shields.io/badge/License-MIT-yellow.svg
-[license-url]: https://opensource.org/licenses/MIT
-[pypi-badge]: https://badge.fury.io/py/workflowforge.svg
-[pypi-url]: https://badge.fury.io/py/workflowforge
-[testpypi-badge]: https://img.shields.io/badge/Test%20PyPI-published-green
-[testpypi-url]: https://test.pypi.org/project/workflowforge/
-[python311-badge]: https://img.shields.io/badge/python-3.11-blue.svg
-[python311-url]: https://www.python.org/downloads/release/python-3110/
-[python312-badge]: https://img.shields.io/badge/python-3.12-blue.svg
-[python312-url]: https://www.python.org/downloads/release/python-3120/
-[python313-badge]: https://img.shields.io/badge/python-3.13-blue.svg
-[python313-url]: https://www.python.org/downloads/release/python-3130/
-[tests-badge]: https://github.com/brainynimbus/workflowforge/workflows/Publish%20WorkflowForge%20to%20PyPI/badge.svg
-[tests-url]: https://github.com/brainynimbus/workflowforge/actions
-[precommit-badge]: https://results.pre-commit.ci/badge/github/brainynimbus/workflowforge/main.svg
-[precommit-url]: https://results.pre-commit.ci/latest/github/brainynimbus/workflowforge/main
-[black-badge]: https://img.shields.io/badge/code%20style-black-000000.svg
-[black-url]: https://github.com/psf/black
-[isort-badge]: https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336
-[isort-url]: https://pycqa.github.io/isort/
+[![Maintained by Brainy Nimbus][maintained-badge]][maintained-url]
 
 A robust and flexible library for creating GitHub Actions workflows, Jenkins pipelines, and AWS CodeBuild BuildSpecs programmatically in Python.
 
@@ -61,7 +41,7 @@ Check out the `examples/` directory for complete working examples:
 
 ```bash
 
-# Or run individual examples
+# Run individual examples
 python examples/github_actions/basic_ci.py
 python examples/jenkins/maven_build.py
 python examples/codebuild/node_app.py
@@ -159,8 +139,6 @@ print(workflow.to_yaml())
 workflow.save(".github/workflows/hello.yml", generate_readme=True, generate_diagram=True)
 # Creates: hello.yml + hello_README.md + My_Workflow.png
 ```
-
-
 
 ### Jenkins Pipeline Usage
 
@@ -261,10 +239,7 @@ from workflowforge import aws_codebuild as cb
 ✅ **Platform separation** - Clear namespace for each platform
 ✅ **Snake case naming** - Follows Python PEP 8 conventions
 ✅ **IDE autocompletion** - Better IntelliSense support
-
 ✅ **Shorter code** - `gh.action()` vs `github_actions.action()`
-
-
 
 ## 🔧 Advanced Examples
 
@@ -391,3 +366,27 @@ MIT License - see [LICENSE](LICENSE) for details.
 - [CodeBuild Documentation](https://docs.aws.amazon.com/codebuild/)
 - [BuildSpec Reference](https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html)
 - [CodeBuild Samples](https://docs.aws.amazon.com/codebuild/latest/userguide/samples.html)
+
+<!-- Badges section -->
+[license-badge]: https://img.shields.io/badge/License-MIT-yellow.svg
+[license-url]: https://opensource.org/licenses/MIT
+[pypi-badge]: https://badge.fury.io/py/workflowforge.svg
+[pypi-url]: https://badge.fury.io/py/workflowforge
+[testpypi-badge]: https://img.shields.io/badge/Test%20PyPI-published-green
+[testpypi-url]: https://test.pypi.org/project/workflowforge/
+[python311-badge]: https://img.shields.io/badge/python-3.11-blue.svg
+[python311-url]: https://www.python.org/downloads/release/python-3110/
+[python312-badge]: https://img.shields.io/badge/python-3.12-blue.svg
+[python312-url]: https://www.python.org/downloads/release/python-3120/
+[python313-badge]: https://img.shields.io/badge/python-3.13-blue.svg
+[python313-url]: https://www.python.org/downloads/release/python-3130/
+[tests-badge]: https://github.com/brainynimbus/workflowforge/workflows/Publish%20WorkflowForge%20to%20PyPI/badge.svg
+[tests-url]: https://github.com/brainynimbus/workflowforge/actions
+[precommit-badge]: https://results.pre-commit.ci/badge/github/brainynimbus/workflowforge/main.svg
+[precommit-url]: https://results.pre-commit.ci/latest/github/brainynimbus/workflowforge/main
+[black-badge]: https://img.shields.io/badge/code%20style-black-000000.svg
+[black-url]: https://github.com/psf/black
+[isort-badge]: https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336
+[isort-url]: https://pycqa.github.io/isort/
+[maintained-badge]: https://img.shields.io/badge/maintained%20by-Brainy%20Nimbus-0A66C2?style=flat
+[maintained-url]: https://brainynimbus.io/
