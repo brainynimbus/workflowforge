@@ -4,6 +4,7 @@
 
 [![License: MIT][license-badge]][license-url]
 [![PyPI version][pypi-badge]][pypi-url]
+[![Downloads][pepy-badge]][pepy-url]
 [![Test PyPI][testpypi-badge]][testpypi-url]
 [![Python Versions][python-versions-badge]][python-versions-url]
 [![Tests][tests-badge]][tests-url]
@@ -424,6 +425,8 @@ MIT License - see [LICENSE](LICENSE) for details.
 [license-url]: https://opensource.org/licenses/MIT
 [maintained-badge]: https://img.shields.io/badge/maintained%20by-Brainy%20Nimbus-8A2BE2?style=flat
 [maintained-url]: https://brainynimbus.io/
+[pepy-badge]: https://static.pepy.tech/badge/workflowforge
+[pepy-url]: https://pepy.tech/project/workflowforge
 [precommit-badge]: https://results.pre-commit.ci/badge/github/brainynimbus/workflowforge/main.svg
 [precommit-url]: https://results.pre-commit.ci/latest/github/brainynimbus/workflowforge/main
 [pypi-badge]: https://badge.fury.io/py/workflowforge.svg
