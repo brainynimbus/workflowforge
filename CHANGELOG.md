@@ -153,3 +153,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Type-safe pipeline generation with IDE autocompletion
 - YAML/Groovy output with validation
 - Modular architecture with clean API design
+
+## [1.1.1] - 2025-08-30
+
+### Changed
+
+- Version bump for TestPyPI publication and minor documentation/tooling updates
