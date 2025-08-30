@@ -21,12 +21,12 @@ A robust and flexible library for creating GitHub Actions workflows, Azure DevOp
 - **IDE Support**: Full autocompletion with type hints
 - **Type Safety**: Complete mypy compliance with strict type checking
 - **Multi-Platform**: GitHub Actions, Azure DevOps, Jenkins, AWS CodeBuild
-- **Optional AI Documentation**: AI-powered README generation with Ollama
 - **Pipeline Visualization**: Automatic diagram generation with Graphviz
 - **Secrets Support**: Secure credential handling across all platforms
 - **Templates**: Pre-built workflows for common use cases
 - **Validation**: Schema validation and best practices checking
-- **Optional Security Scan**: On-demand Checkov scan for generated workflows (GitHub Actions and Azure Pipelines)
+- **Optional Security Scan**: On-demand Checkov scan for generated workflows (GitHub Actions and Azure
+- **Optional AI Documentation**: AI-powered README generation with OllamaPipelines)
 
 ## 🚀 Installation
 
@@ -338,6 +338,7 @@ workflow.add_job("deploy", deploy_job)
 - `action()`, `run()` steps
 - `secret()`, `variable()`, `github_context()` for credentials
 - Build matrices, strategies, environments
+- Optional Checkov scan: `workflow.save(path, scan_with_checkov=True)`
 
 **Jenkins:**
 
@@ -354,8 +355,9 @@ workflow.add_job("deploy", deploy_job)
 **Azure DevOps:**
 
 - `pipeline()`, `job()`, `strategy(matrix=...)`, `task()`, `script()`
-- Python CI template with multi-OS matrix and pip caching
+- Build matrices, multi-OS matrix, and pip caching
 - Hello world template
+- Optional Checkov scan: `pipeline.save(path, scan_with_checkov=True)`
 
 ### AI Documentation
 
