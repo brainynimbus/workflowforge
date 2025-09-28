@@ -20,11 +20,12 @@ def test_python_ci_template():
     assert "strategy" in parsed["jobs"]["test"]
     # Ensure matrix variable name matches the matrix key (python_version)
     steps = parsed["jobs"]["test"]["steps"]
-    setup_steps = [s for s in steps if s.get("uses") == "actions/setup-python@v5"]
-    assert setup_steps, "Missing actions/setup-python@v5 step"
-    assert setup_steps[0]["with"]["python-version"] == "${{ matrix.python_version }}", (
-        "setup-python should reference matrix.python_version"
+    setup_step = next(
+        (step for step in steps if step.get("uses") == "actions/setup-python@v5"),
+        None,
     )
+    assert setup_step, "Missing actions/setup-python@v5 step"
+    assert setup_step["with"]["python-version"] == "${{ matrix.python_version }}"
 
 
 def test_docker_build_template():
@@ -47,8 +48,9 @@ def test_node_ci_template():
     assert "test" in parsed["jobs"]
     # Ensure matrix variable name matches the matrix key (node_version)
     steps = parsed["jobs"]["test"]["steps"]
-    setup_steps = [s for s in steps if s.get("uses") == "actions/setup-node@v4"]
-    assert setup_steps, "Missing actions/setup-node@v4 step"
-    assert setup_steps[0]["with"]["node-version"] == "${{ matrix.node_version }}", (
-        "setup-node should reference matrix.node_version"
+    setup_step = next(
+        (step for step in steps if step.get("uses") == "actions/setup-node@v4"),
+        None,
     )
+    assert setup_step, "Missing actions/setup-node@v4 step"
+    assert setup_step["with"]["node-version"] == "${{ matrix.node_version }}"
