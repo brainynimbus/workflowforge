@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security Vulnerability
+    url: https://github.com/brainynimbus/workflowforge/security/policy
+    about: Please report security vulnerabilities through our coordinated disclosure program.
+  - name: Questions & Discussions
+    url: https://github.com/brainynimbus/workflowforge/discussions
+    about: For usage questions or ideas, start a discussion thread instead of opening an issue.
