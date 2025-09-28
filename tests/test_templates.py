@@ -18,7 +18,7 @@ def test_python_ci_template():
     assert parsed["name"] == "Python CI"
     assert "test" in parsed["jobs"]
     assert "strategy" in parsed["jobs"]["test"]
-    # Ensure matrix variable name matches the matrix key (python_version)
+    # Ensure matrix variable name matches the matrix key (python_version).
     steps = parsed["jobs"]["test"]["steps"]
     setup_steps = [s for s in steps if s.get("uses") == "actions/setup-python@v5"]
     assert setup_steps, "Missing actions/setup-python@v5 step"
