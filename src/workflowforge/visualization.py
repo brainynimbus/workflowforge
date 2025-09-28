@@ -40,8 +40,7 @@ class PipelineVisualizer(BaseModel):
         # Triggers
         triggers = self._format_triggers(workflow.on)
         dot.append(
-            f'    trigger [label="Triggers\\n{triggers}", '
-            "shape=ellipse, color=green];"
+            f'    trigger [label="Triggers\\n{triggers}", shape=ellipse, color=green];'
         )
 
         # Jobs
@@ -74,7 +73,7 @@ class PipelineVisualizer(BaseModel):
         # Agent
         agent_info = self._format_jenkins_agent(pipeline.agent)
         dot.append(
-            f'    agent [label="Agent\\n{agent_info}", ' "shape=ellipse, color=blue];"
+            f'    agent [label="Agent\\n{agent_info}", shape=ellipse, color=blue];'
         )
 
         # Stages
