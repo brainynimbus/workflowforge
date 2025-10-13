@@ -9,7 +9,7 @@ repos:
 
   # Ruff (lints + fixes and formats)
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.13.1
+    rev: v0.14.0
     hooks:
       - id: ruff-check
         args: ["--fix"]
@@ -41,7 +41,7 @@ repos:
 
   # Conventional commits validation
   - repo: https://github.com/compilerla/conventional-pre-commit
-    rev: v4.2.0
+    rev: v4.3.0
     hooks:
       - id: conventional-pre-commit
         stages: [commit-msg]
