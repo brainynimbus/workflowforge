@@ -9,7 +9,7 @@ repos:
 
   # Ruff (lints + fixes and formats)
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.14.3
+    rev: v0.14.5
     hooks:
       - id: ruff-check
         args: ["--fix"]
@@ -17,7 +17,7 @@ repos:
 
   # Security scanning (code)
   - repo: https://github.com/PyCQA/bandit
-    rev: 1.8.6
+    rev: 1.9.0
     hooks:
       - id: bandit
         args: ["-r", "src/"]
