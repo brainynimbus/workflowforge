@@ -9,7 +9,7 @@ repos:
 
   # Ruff (lints + fixes and formats)
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.14.6
+    rev: v0.16.5
     hooks:
       - id: ruff-check
         args: ["--fix"]
@@ -17,7 +17,7 @@ repos:
 
   # Security scanning (code)
   - repo: https://github.com/PyCQA/bandit
-    rev: 1.9.2
+    rev: 1.9.4
     hooks:
       - id: bandit
         args: ["-r", "src/"]
@@ -34,21 +34,21 @@ repos:
 
   # Markdown linting (auto-fix)
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.46.0
+    rev: v0.49.1
     hooks:
       - id: markdownlint-fix
         args: ["--disable", "MD013,MD024"]
 
   # Conventional commits validation
   - repo: https://github.com/compilerla/conventional-pre-commit
-    rev: v4.3.0
+    rev: v4.4.0
     hooks:
       - id: conventional-pre-commit
         stages: [commit-msg]
 
   # YAML linting for generated examples
   - repo: https://github.com/adrienverge/yamllint
-    rev: v1.37.1
+    rev: v1.38.0
     hooks:
       - id: yamllint
         args: ["--config-data", "{extends: default, rules: {document-start: disable, line-length: {max: 120}, truthy: disable}}"]
