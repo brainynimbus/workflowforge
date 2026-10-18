@@ -1,0 +1,59 @@
+name: Greptile credit fallback (Bedrock PR-Agent)
+
+on:
+  pull_request_review:
+    types: [submitted]
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+  id-token: write
+
+concurrency:
+  group: bedrock-pr-review-${{ github.event.pull_request.number }}
+  cancel-in-progress: false
+
+jobs:
+  review:
+    if: >-
+      github.event.review.user.login == 'greptile-apps[bot]' &&
+      github.event.review.state == 'commented' &&
+      github.event.pull_request.draft == false &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.event.review.commit_id == github.event.pull_request.head.sha &&
+      (
+        contains(github.event.review.body, '50-credit limit') ||
+        contains(github.event.review.body, 'free trial has ended') ||
+        contains(github.event.review.body, 'paused reviews')
+      )
+    runs-on: ubuntu-latest
+    steps:
+      - name: Obtain Bedrock credentials using OIDC
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::848149085105:role/github-pr-agent-bedrock
+          role-session-name: pr-agent-${{ github.run_id }}
+          aws-region: us-east-1
+
+      - name: Install official PR-Agent
+        run: |
+          python -m pip install --disable-pip-version-check \
+            'git+https://github.com/The-PR-Agent/pr-agent.git@2c2e5578a82f9c2dc03d6949f941c186e9ec07a1'
+
+      - name: Review with Bedrock
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          AWS_USE_IMDS: "true"
+          AWS_REGION_NAME: us-east-1
+          CONFIG__MODEL: bedrock/qwen.qwen3-coder-next
+          CONFIG__MODEL_WEAK: bedrock/zai.glm-4.7-flash
+          CONFIG__FALLBACK_MODELS: '["bedrock/zai.glm-4.7-flash"]'
+          CONFIG__PERSISTENT_INLINE_COMMENTS: "true"
+          PR_REVIEWER__PERSISTENT_FINDING_STATE: "true"
+          PR_REVIEWER__INLINE_KEY_ISSUES: "true"
+          PR_REVIEWER__NUM_MAX_FINDINGS: "4"
+          CONFIG__OUTPUT_RUN_DETAILS: "true"
+          CONFIG__OUTPUT_RUN_COST: "true"
+          PR_URL: ${{ github.event.pull_request.html_url }}
+        run: pr-agent --pr_url "$PR_URL" review

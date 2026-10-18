@@ -1,0 +1,28 @@
+# Fallback only: Greptile remains the primary reviewer.
+# The official PR-Agent CLI is invoked only when Greptile explicitly reports
+# exhausted credits for the current PR head commit.
+[config]
+model = "bedrock/qwen.qwen3-coder-next"
+model_weak = "bedrock/zai.glm-4.7-flash"
+fallback_models = ["bedrock/zai.glm-4.7-flash"]
+persistent_inline_comments = true
+output_run_details = true
+output_run_cost = true
+max_model_tokens = 32000
+enable_auto_approval = false
+
+[pr_reviewer]
+persistent_finding_state = true
+inline_key_issues = true
+num_max_findings = 4
+extra_instructions = """
+Identify only concrete, actionable correctness, security and reliability issues.
+Validate the failure path and cite actual changed lines.
+Respect existing resolved discussions and previously dismissed findings.
+Do not repeat findings unless new changes reintroduce them.
+Prioritize IAM, Terraform, Helm, AWS services, secret handling and rollback safety.
+Do not report style or speculative concerns.
+"""
+
+[pr_description]
+enable_pr_diagram = true
